@@ -1726,6 +1726,7 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .dev-mobile .tabs .tab{min-height:48px}
 .grab{border-radius:var(--r-pill)}
 .nextc .nc-steps{padding:4px}
+.f-split.su .su-head .help{display:block;margin-top:4px}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2012,10 +2013,10 @@ function outline(){const L=slides();return `<ol class="oln" aria-label="Deck out
  ${addMenuHTML('O','btn btn-secondary addbtn')}`;}
 function incChecks(){return `${ck('Colour palette from your Pins',S.inc.palette,'inc','palette')}${ck('Source credits on each slide',S.inc.credits,'inc','credits')}${ck('Speaker notes',S.inc.notes,'inc','notes')}`;}
 function delivChips(){return `<div class="chips" role="group" aria-label="Deliverable"><button class="chip" aria-pressed="true">Deck</button><button class="chip" data-a="soon" data-v="Moodboard">Moodboard</button><button class="chip" data-a="soon" data-v="Project plan">Project plan</button></div>`;}
-function dTemplate(){return shell(fhead('Stillwater · Deck','')+`<div class="f-split ol"><div class="f-main"><div class="shd"><h2>Which deliverable?</h2></div>${delivChips()}
+function dTemplate(){return shell(fhead('Stillwater · Deck','')+`<div class="f-split ol su"><div class="f-main"><div class="shd"><h2>Which deliverable?</h2></div>${delivChips()}
  <div class="shd"><h2>Pick a template</h2><span class="help">You can switch later</span></div><div class="tpls" role="radiogroup" aria-label="Template">${Object.entries(TPL).map(([k,t])=>`<button class="tpl" role="radio" aria-checked="${S.tpl===k}" data-a="tpl" data-v="${k}">${tplPreview(k)}<span class="nm">${t.n}${box(S.tpl===k)}</span><p>${t.d}</p></button>`).join('')}</div>
  <div class="shd"><h2>Include</h2></div><div style="display:flex;gap:24px;flex-wrap:wrap">${incChecks()}</div></div>
- <aside class="f-side"><h2>Deck outline</h2><span class="help" style="margin-top:-8px">Pinterest builds these slides from your themes and insights.</span>${outline()}${brandAssets()}<div class="foot"><button class="btn btn-primary" data-a="generate">Generate deck</button></div></aside></div>`);}
+ <aside class="f-side"><div class="su-head"><h2>Deck outline</h2><span class="help">Pinterest builds these slides from your themes and insights.</span></div>${outline()}${brandAssets()}<div class="foot"><button class="btn btn-primary" data-a="generate">Generate deck</button></div></aside></div>`);}
 
 function slideCopy(){const L=slides();const s=L[S.slide];let lab='Slide copy',txt='',key=null;
  if(s.k==='concept'){const t=theme(s.id)||THEMES0.find(x=>x.id===s.id);txt=S.alt[s.id]?ALT[s.id]:t.insight;key='ins:'+s.id;}
