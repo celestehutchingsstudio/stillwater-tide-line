@@ -1785,6 +1785,24 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .dev-mobile .oln>li .lt{display:flex;flex-direction:column;gap:2px;justify-content:center;text-wrap:balance}
 .dev-mobile .oln>li .lt small{font-size:var(--fs-100);color:var(--fg2);font-weight:400;line-height:1.3}
 .dev-mobile .oln>li .lt b{font-weight:600;line-height:1.3}
+.dev-mobile .modal .grab{width:40px;height:4px;background:var(--line-strong);margin:-12px auto -4px;flex:none}
+.mis-hd{align-items:flex-start;gap:12px}
+.mis-hd .tt{flex:1;display:flex;flex-direction:column;gap:4px}
+.mis-hd .help{line-height:1.4}
+.issue.mis{display:grid;grid-template-columns:96px 1fr;gap:12px 16px;padding:16px;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-400)}
+.issue.mis.done{background:var(--wash);outline:1px solid var(--line)}
+.mis-th{position:relative;display:block;border-radius:var(--r-200);overflow:visible;align-self:start}
+.mis-th .oth{display:block;border-radius:var(--r-200);overflow:hidden;outline:1px solid var(--line)}
+.mis-st{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--fg);color:var(--surface);box-shadow:0 0 0 2px var(--surface)}
+.mis-st.ok{background:var(--surface);color:var(--fg);box-shadow:0 0 0 1px var(--line-strong)}
+.mis-st .i{width:14px;height:14px}
+.mis-tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mis-tx small{font-size:var(--fs-100);color:var(--fg2);font-weight:600}
+.mis-tx b{font-size:var(--fs-300);font-weight:600;line-height:1.3}
+.mis-tx p{margin:4px 0 0;color:var(--fg2);font-size:var(--fs-200);line-height:1.4;text-wrap:pretty}
+.issue.mis .acts{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.issue.mis .acts .btn{width:100%}
+.mis-ft{justify-content:stretch}.mis-ft .btn{flex:1}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2088,6 +2106,10 @@ function tbar(){const s=slides()[S.slide];const nL=s.k==='concept'?4:1;const li=
  return `<div class="tbar" role="toolbar" aria-label="Slide tools"><button class="btn btn-ghost" data-a="swapImg">${I('swap','sm')}Swap image</button><button class="btn btn-ghost" data-a="layout" data-v="1">${I('layout','sm')}Layout</button><span style="position:relative"><button class="btn btn-ghost" data-a="palette" aria-haspopup="menu" aria-expanded="${S.pop==='pal'}">${I('palette','sm')}Palette</button>${S.pop==='pal'?palMenu():''}</span>
  <button class="ib sm" data-a="layout" data-v="-1" aria-label="Previous layout" ${nL<2?'disabled':''}>${I('left','sm')}</button><span class="lay">Layout ${li+1} of ${nL}</span><button class="ib sm" data-a="layout" data-v="1" aria-label="Next layout" ${nL<2?'disabled':''}>${I('right','sm')}</button><span class="tsep" aria-hidden="true"></span>${addMenuHTML('E','btn btn-ghost','Add')}${slideDelBtn('E','btn btn-ghost','Delete')}</div>`;}
 function palMenu(){return `<div class="menu" role="menu" style="position:absolute;top:100%;left:0;margin-top:6px;z-index:30;min-width:180px"><span class="help" style="padding:4px 12px 8px;display:block">Slide background</span>${Object.entries(BGS).map(([n,c])=>`<button class="mi" role="menuitemradio" aria-checked="${S.bg===n}" data-a="setBg" data-v="${n}"><i style="width:16px;height:16px;border-radius:50%;background:${c};box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);display:inline-block"></i>${n}${S.bg===n?' · current':''}</button>`).join('')}</div>`;}
+function mIssueCards(){const lo=silverIdx()+1,cr=stoneIdx()+1;
+ const card=(key,n,title,desc,fixA,fixL,doneTx)=>{const o=S.issues[key]==='open';return `<div class="issue mis${o?'':' done'}"><button class="mis-th" data-a="goSlide" data-v="${n-1}" aria-label="Go to slide ${n}"><span class="oth" aria-hidden="true">${slideHTML(n-1)}</span><span class="mis-st${o?'':' ok'}" aria-hidden="true">${I(o?'flag':'check','sm')}</span></button><div class="mis-tx"><small>Slide ${n}</small><b>${title}</b><p>${o?desc:doneTx}</p></div>${o?`<div class="acts"><button class="btn btn-dark" data-a="${fixA}">${fixL}</button><button class="btn btn-secondary" data-a="ignore" data-v="${key}">Ignore</button></div>`:''}</div>`;};
+ return card('low',lo,'Low resolution','One image will look blurry on a large screen.','fixLow','Swap image',S.issues.low==='fixed'?'Swapped for a sharper image.':'Ignored. The image stays as it is.')
+ +card('credit',cr,'Missing credit','The creator for one Pin could not be found.','addCredit','Add credit',S.issues.credit==='fixed'?`Credited to ${esc(S.credit)}.`:'Ignored. The slide shares without this credit.');}
 function issueCards(){const lo=silverIdx()+1,cr=stoneIdx()+1;const st=v=>v==='open'?'':' done';
  const L=[];
  L.push(`<div class="issue${st(S.issues.low)}"><b>${I(S.issues.low==='open'?'flag':'check','sm')}<button data-a="goSlide" data-v="${lo-1}" style="font-weight:inherit">Slide ${lo} · Low resolution</button></b>${S.issues.low==='open'?`<p>One image will look blurry on a large screen.</p><div class="acts"><button class="btn btn-secondary sm" data-a="fixLow">Swap image</button><button class="btn btn-ghost sm" data-a="ignore" data-v="low">Ignore</button></div>`:`<p>${S.issues.low==='fixed'?'Swapped for a sharper image.':'Ignored. The image stays as it is.'}</p>`}</div>`);
@@ -2215,6 +2237,7 @@ function modal(){const M=S.modal;if(!M)return '';let body='';
  else if(M.k==='shareAnyway'){const n=openIssues();body=`<h2>${n} issue${n>1?'s':''} still open</h2><p class="muted" style="margin:0">Nora will see the deck as it is now. You can fix them first, or share anyway.</p><div class="foot"><button class="btn btn-secondary" data-a="reviewIssues">Review issues</button><button class="btn btn-primary" data-a="shareGo">Share anyway</button></div>`;}
  else if(M.k==='approve'){body=`<h2>Mark the deck approved?</h2><p class="muted" style="margin:0">Do this once Nora has said yes. The deck is marked Approved and filed under Stillwater in Client projects, with its board and files.</p>${openC().length?`<p class="small" style="margin:0">${openC().length} comment${openC().length>1?'s are':' is'} still open. They stay with the deck.</p>`:''}<div class="foot">${openC().length?`<button class="btn btn-secondary" data-a="reviewComments">Review comments</button>`:`<button class="btn btn-secondary" data-a="closeModal">Not yet</button>`}<button class="btn btn-primary" data-a="approveGo">Mark approved</button></div>`;}
  else if(M.k==='outline'){body=`<div class="row"><h2>Deck outline</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${outline()}${brandAssets()}`;}
+ else if(M.k==='issues'&&S.dev==='mobile'){const n=openIssues();body=`<div class="grab" aria-hidden="true"></div><div class="row mis-hd"><div class="tt"><h2>Before you share</h2><span class="help">${n?`${n} thing${n>1?'s':''} to check. Pinterest looks at image quality, rights and credits.`:'Everything is checked. Your deck is ready to share.'}</span></div><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${n?'':`<div class="allclear">${I('check','sm')}Ready to share</div>`}${mIssueCards()}<div class="foot mis-ft"><button class="btn ${n?'btn-secondary':'btn-primary'}" data-a="closeModal">${n?'Done for now':'Done'}</button></div>`;}
  else if(M.k==='issues'){body=`<div class="row"><h2 style="flex:1">Before you share</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${issueCards()}<div class="foot"><button class="btn btn-dark" data-a="closeModal">Done</button></div>`;}
  return `<div class="modal-bg" data-a="bgClose"><div class="modal" role="dialog" aria-modal="true">${body}</div></div>`;}
 function present(){const i=S.present.i,n=slides().length;return `<div class="present" role="dialog" aria-label="Presenting"><button class="ib x" data-a="endPresent" aria-label="Exit presentation">${I('x')}</button>${slideHTML(i)}<div class="pc"><button class="ib" data-a="pres" data-v="-1" aria-label="Previous slide">${I('left')}</button><span>${i+1} / ${n}</span><button class="ib" data-a="pres" data-v="1" aria-label="Next slide">${I('right')}</button></div></div>`;}
