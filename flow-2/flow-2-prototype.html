@@ -1820,18 +1820,17 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .mf-tx>span{font-size:var(--fs-100);color:var(--fg2);line-height:1.4}
 .mf-dels{margin:0;padding:0 0 4px}
 .mf-dels .del b{color:var(--fg)}
-.mst{display:inline-flex;align-items:center;gap:6px;flex:none;font-size:var(--fs-100);font-weight:var(--fw-semi);padding:4px 10px 4px 8px;border-radius:var(--r-pill);background:var(--surface);color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
-.mproj .mst{background:var(--subtle);box-shadow:none}
-.mst i{width:8px;height:8px;border-radius:50%;background:currentColor}
-.mst.ap{background:#dff3e7;color:#0a5b2e;box-shadow:none}
-.mst.ap .i{width:14px;height:14px;stroke-width:2.5}
-.mst.sb i{background:#2b6cd4}
-.mst.ip i{background:#c77a00}
-.mproj .tx span.mst{color:var(--fg)}
-.mproj .tx span.mst.ap{color:#0a5b2e}
+.mst{display:inline-flex;align-items:center;gap:6px;flex:none;font-size:var(--fs-100);font-weight:var(--fw-semi);line-height:16px;color:var(--fg);background:none;padding:0}
+.mst .sti{width:16px;height:16px;flex:none}
+.mst .stx{color:var(--fg)}
+.mst.ap{color:#008753}.mst.sb{color:#0074e8}.mst.ip{color:#bd5b00}
+.mproj .tx span.mst,.mproj .tx span.mst .stx{color:var(--fg);font-size:var(--fs-100)}
+.mproj .tx span.mst.ap{color:#008753}.mproj .tx span.mst.sb{color:#0074e8}.mproj .tx span.mst.ip{color:#bd5b00}
+.mproj .tx .mst{margin-top:2px}
+[data-theme="dark"] .mst.ap,[data-theme="dark"] .mproj .tx span.mst.ap{color:#4fbf8b}
+[data-theme="dark"] .mst.sb,[data-theme="dark"] .mproj .tx span.mst.sb{color:#5aa9ff}
+[data-theme="dark"] .mst.ip,[data-theme="dark"] .mproj .tx span.mst.ip{color:#f19a4c}
 .mproj .cv{width:112px}
-[data-theme="dark"] .mst.ap,[data-theme="dark"] .mproj .tx span.mst.ap{background:#173d27;color:#a8e6c0}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mst.ap{background:#173d27;color:#a8e6c0}}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2201,7 +2200,7 @@ function cover(it,m){if(it.sl!=null)return `<span class="cv">${slideHTML(it.sl)}
 function delBtn(it,k){return `<button class="del${it.hl&&S.approved?' hl':''}" data-a="openDel" data-v="${esc(it.go||'')}" data-t="${esc(it.t)}">${cover(it)}<b>${esc(it.t)}</b><span class="m">${esc(it.m)}</span></button>`;}
 function stTag(p){return mSt(p);}
 function counts(c){const all=catData().find(x=>x.n===c.n);return `${all.projects.length} projects · ${all.projects.reduce((a,p)=>a+p.items.length,0)} deliverables`;}
-function filedBanner(){return S.approved?`<div class="filed"><span class="mst ap">${I('check','sm')}Approved</span><span>Nora approved the Tide Line packaging pitch on Nov 28. It is filed under Stillwater with its source board and files.</span></div>`:'';}
+function filedBanner(){return S.approved?`<div class="filed">${STATUS_AP()}<span>Nora approved the Tide Line packaging pitch on Nov 28. It is filed under Stillwater with its source board and files.</span></div>`:'';}
 function catTabs(){return `<div class="tabs" role="tablist" style="margin-top:16px">${['All work','Decks','Packaging','Print'].map(t=>`<button class="tab" role="tab" aria-selected="${S.cTab===t}" data-a="cTab" data-v="${t}">${t}</button>`).join('')}</div>`;}
 function dCatalog(){const data=catFiltered();
  return shell(`<div class="cpg"><div class="cph"><button class="ib" data-a="back" aria-label="Back">${I('back')}</button><div style="flex:1"><h1>Client projects</h1><div class="sub">Every deck and deliverable I have made, filed by client and project</div></div><button class="btn btn-secondary" data-a="cSearch">Search</button><button class="btn btn-primary" data-a="newProject">New project</button></div>
@@ -2252,7 +2251,9 @@ function mCatalog(){const data=catFiltered();return `${mStatus()}<div class="m-h
  <div class="tabs" role="tablist" style="gap:16px;margin-top:4px">${['All work','Decks','Packaging','Print'].map(t=>`<button class="tab" role="tab" aria-selected="${S.cTab===t}" data-a="cTab" data-v="${t}">${t}</button>`).join('')}</div>
   <div id="catlist">${mCatList(data)}</div></div><div class="m-foot"><button class="btn btn-primary" data-a="newProject">New project</button></div>`;}
 const MST={'Studio refill card':'Approved','Bag and label system':'In progress','Rebrand pitch':'Approved','Spring catalogue':'Submitted','Showroom signage':'Approved'};
-function mSt(p){const st=p.n.startsWith('Tide')?(S.approved?'Approved':'Submitted'):(MST[p.n]||'Submitted');const k={Approved:'ap','Submitted':'sb','In progress':'ip'}[st];return `<span class="mst ${k}">${k==='ap'?I('check','sm'):'<i aria-hidden="true"></i>'}${st}</span>`;}
+const STI={ap:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',sb:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M8 11.5V4.8M5.2 7.4L8 4.6l2.8 2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',ip:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 3.5a4.5 4.5 0 0 1 0 9z" fill="currentColor"/></svg>'};
+function STATUS_AP(){return `<span class="mst ap">${STI.ap}<span class="stx">Approved</span></span>`;}
+function mSt(p){const st=p.n.startsWith('Tide')?(S.approved?'Approved':'Submitted'):(MST[p.n]||'Submitted');const k={Approved:'ap','Submitted':'sb','In progress':'ip'}[st];return `<span class="mst ${k}">${STI[k]}<span class="stx">${st}</span></span>`;}
 function mCatList(data){return data.length?data.map(c=>`<section class="mcl"><div class="mcl-h"><h2>${esc(c.n)}</h2><span>${esc(c.sub)} · ${catData().find(x=>x.n===c.n).projects.length} projects</span></div>
  ${c.projects.map(p=>{const first=p.items[0];const tl=p.n.startsWith('Tide');const meta=`${p.d} · ${esc(p.items.map(i=>i.t).join(', ').toLowerCase().replace(/^./,x=>x.toUpperCase()))}`;
  return tl?`<article class="mfeat"><button class="mf-cv" data-a="openDel" data-v="${esc(first.go||'')}" data-t="${esc(first.t)}" aria-label="Open ${esc(p.n)} pitch deck">${cover(first,true)}</button><div class="mf-tx"><div class="mf-row"><b>${esc(p.n)}</b>${mSt(p)}</div><span>${S.approved?'Approved by Nora on Nov 28 · ':''}${meta}</span></div>${p.items.length>1?`<div class="mdels mf-dels">${p.items.slice(1,4).map(delBtn).join('')}</div>`:''}</article>`
