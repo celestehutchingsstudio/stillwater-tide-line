@@ -1708,14 +1708,12 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .th-mv .addw .menu{left:0;right:auto}
 .th-plus{background:var(--subtle)}
 .th-plus:hover{background:var(--subtle-hover)}
-@keyframes issuePop{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(230,0,35,0)}25%{transform:scale(1.04);box-shadow:0 0 0 4px rgba(230,0,35,.55),0 8px 24px rgba(230,0,35,.18)}55%{transform:scale(.99)}75%{transform:scale(1.015);box-shadow:0 0 0 3px rgba(230,0,35,.4)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(230,0,35,0)}}
-@keyframes flagPop{0%,100%{transform:scale(1)}30%{transform:scale(1.35) rotate(-8deg);background:#E60023;color:#fff}60%{transform:scale(.95)}80%{transform:scale(1.12);background:#E60023;color:#fff}}
-.issue.pop,.cmt.pop{animation:issuePop .9s cubic-bezier(.2,.8,.2,1) both;position:relative;z-index:1}
-.th-b .flag.pop,.pinc.pop{animation:flagPop .9s cubic-bezier(.2,.8,.2,1) both}
-@media (prefers-reduced-motion:reduce){.issue.pop,.cmt.pop{animation:none;box-shadow:0 0 0 3px #E60023;transition:box-shadow .6s}.th-b .flag.pop{animation:none;background:#E60023;color:#fff}}
-@keyframes pincPop{0%,100%{transform:scale(1)}30%{transform:scale(1.4)}60%{transform:scale(.95)}80%{transform:scale(1.15)}}
-.pinc.pop{animation:pincPop .9s cubic-bezier(.2,.8,.2,1) both}
 .f-split.su .su-head .row{margin:0}
+@keyframes liftPop{0%{transform:scale(1);box-shadow:0 0 0 rgba(0,0,0,0)}40%{transform:scale(1.025);box-shadow:0 12px 32px rgba(0,0,0,.14)}100%{transform:scale(1);box-shadow:0 0 0 rgba(0,0,0,0)}}
+@keyframes dotPop{0%,100%{transform:scale(1)}40%{transform:scale(1.15)}}
+.issue.pop,.cmt.pop{animation:liftPop .7s cubic-bezier(.22,1,.36,1) both;position:relative;z-index:1}
+.th-b .flag.pop,.pinc.pop{animation:dotPop .7s cubic-bezier(.22,1,.36,1) both}
+@media (prefers-reduced-motion:reduce){.issue.pop,.cmt.pop,.th-b .flag.pop,.pinc.pop{animation:none}}
 
 </style>
 </head><body><div class="ctl"></div>
