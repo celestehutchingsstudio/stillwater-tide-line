@@ -1861,6 +1861,9 @@ body.odragging,body.odragging *{cursor:grabbing!important}
 .mstrip[data-sortbox]>[data-sort]{transition:none}
 .thumbs>.th-w.lifting{box-shadow:none}
 .thumbs>.th-w.lifting .fr{border-radius:var(--r-200);box-shadow:0 0 0 2px var(--fg),0 8px 24px rgba(0,0,0,.2)}
+/* 40px minimum hit area without changing visual size */
+:where(.btn,.acct,.ck,.ib.xs,.gr,.tab,.issue b button){position:relative}
+:is(.btn,.acct,.ck,.ib.xs:not(.th-plus),.gr,.tab,.issue b button)::before{content:"";position:absolute;top:min(0px,calc((100% - 40px) / 2));bottom:min(0px,calc((100% - 40px) / 2));left:min(0px,calc((100% - 40px) / 2));right:min(0px,calc((100% - 40px) / 2))}
 
 </style>
 </head><body><div class="ctl"></div>
