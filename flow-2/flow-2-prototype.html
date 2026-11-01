@@ -1803,6 +1803,9 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .issue.mis .acts{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .issue.mis .acts .btn{width:100%}
 .mis-ft{justify-content:stretch}.mis-ft .btn{flex:1}
+.sheet .f-foot{position:sticky;bottom:-32px;z-index:2;margin:4px -16px -32px;padding:12px 16px 28px;background:var(--surface);border-top:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.sheet .f-foot .help{flex:1;min-width:0}
+.sheet .f-foot .btn{flex:none;min-width:140px}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2242,7 +2245,7 @@ function modal(){const M=S.modal;if(!M)return '';let body='';
  return `<div class="modal-bg" data-a="bgClose"><div class="modal" role="dialog" aria-modal="true">${body}</div></div>`;}
 function present(){const i=S.present.i,n=slides().length;return `<div class="present" role="dialog" aria-label="Presenting"><button class="ib x" data-a="endPresent" aria-label="Exit presentation">${I('x')}</button>${slideHTML(i)}<div class="pc"><button class="ib" data-a="pres" data-v="-1" aria-label="Previous slide">${I('left')}</button><span>${i+1} / ${n}</span><button class="ib" data-a="pres" data-v="1" aria-label="Next slide">${I('right')}</button></div></div>`;}
 function genOverlay(){return `<div class="gen" role="status"><div class="card"><span class="spin"></span>Building your ${slides().length} slides from ${S.themes.length} themes…<span class="help">Adding your palette, credits and brand assets</span></div></div>`;}
-function findSheet(){return `<div class="sheet-bg" data-a="closeFind"></div><div class="sheet" role="dialog" aria-label="Find more" style="top:96px;display:flex;flex-direction:column;gap:12px"><div class="grab"></div>${findPanel(true)}</div>`;}
+function findSheet(){return `<div class="sheet-bg" data-a="closeFind"></div><div class="sheet" role="dialog" aria-label="Find more" style="top:96px;display:flex;flex-direction:column;gap:12px"><div class="grab"></div>${findPanel(true)}${S.dev==='mobile'?`<div class="f-foot"><span class="help">${refs().length} references · ${NEW.filter(k=>S.saved.has(k)).length} added</span><button class="btn btn-primary" data-a="findDone">Continue</button></div>`:''}</div>`;}
 
 /* ---------- render ---------- */
 const SCREENS={desktop:{board:dBoard,setup:dSetup,refs:dRefs,themes:dThemes,template:dTemplate,editor:dEditor,preview:dPreview,review:dReview,catalog:dCatalog},
@@ -2266,7 +2269,7 @@ const A={
  back,soon:el=>{S.pop=null;soon(el.dataset.v);},toastMsg:el=>toast(el.dataset.v),closePop:()=>{S.pop=null;render();},
  navBoard:()=>go('board'),navCat:()=>go('catalog'),
  moreIdeas:()=>{if(S.themes){go('refs',{set:{find:true}});}else go('refs',{set:{find:true}});},
- startProject:()=>{S.errors={};go('setup');},findMore:()=>{if(S.screen!=='refs')go('refs',{set:{find:true}});else{S.find=true;render();}},closeFind:()=>{S.find=false;render();},
+ startProject:()=>{S.errors={};go('setup');},findMore:()=>{if(S.screen!=='refs')go('refs',{set:{find:true}});else{S.find=true;render();}},closeFind:()=>{S.find=false;render();},findDone:()=>{S.find=false;A.group();},
  deliv:el=>{const k=el.dataset.v;if(k==='plan'){toast('Project plans are coming later',{icon:'clock'});return;}const d=S.form.deliv;if(d.has(k)&&d.size>1)d.delete(k);else d.add(k);render();if(k==='mood'&&d.has('mood'))toast('Moodboard added. This prototype follows the deck.',{icon:'sparkle'});},
  continue:()=>{const f=S.form;S.errors={client:!f.client.trim(),project:!f.project.trim()};if(S.errors.client||S.errors.project){render();toast('Fill in the client and project name',{err:true});return;}S.errors={};go('refs',{set:{find:refs().length<30}});},
  saveRef:el=>{const k=el.dataset.id;if(S.saved.has(k)){S.saved.delete(k);S.justSaved=null;render();toast('Removed from the board');return;}S.saved.add(k);S.justSaved=k;if(S.themes){const t=THEMES0.find(t=>t.pins.includes(k));const tt=t&&theme(t.id);if(tt&&!tt.pins.includes(k))tt.pins.push(k);}render();toast(`Saved to Stillwater · Tide Line packaging`,{action:'Undo',fn:()=>{S.saved.delete(k);render();}});},
