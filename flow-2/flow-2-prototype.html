@@ -1350,13 +1350,13 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .tpl .nm{display:flex;justify-content:space-between;align-items:center;font-weight:var(--fw-semi);font-size:var(--fs-300)}
 .tpl p{margin:0;color:var(--fg2);font-size:var(--fs-200)}
 .oln{display:flex;flex-direction:column;gap:6px;counter-reset:o}
-.oln li{list-style:none;display:flex;gap:6px;align-items:center;background:var(--subtle);border-radius:var(--r-300);padding:4px 4px 4px 4px;font-size:var(--fs-200);min-height:44px;cursor:grab;transition:background .12s,box-shadow .12s}
-.oln li:hover{background:var(--subtle-hover)}
-.oln li.dragging{opacity:.45}
-.oln li .gr{color:var(--fg2);display:grid;place-items:center;width:20px}
-.oln li .no{color:var(--fg2);font-size:var(--fs-100);min-width:18px;text-align:right;font-variant-numeric:tabular-nums}
-.oln li .lt{flex:1;min-width:0;line-height:1.3;padding:4px 0}
-.oln li .oa{display:flex;gap:0;flex:none}
+.oln>li{list-style:none;display:flex;gap:6px;align-items:center;background:var(--subtle);border-radius:var(--r-300);padding:4px 4px 4px 4px;font-size:var(--fs-200);min-height:44px;cursor:grab;transition:background .12s,box-shadow .12s}
+.oln>li:hover{background:var(--subtle-hover)}
+.oln>li.dragging{opacity:.45}
+.oln>li .gr{color:var(--fg2);display:grid;place-items:center;width:20px}
+.oln>li .no{color:var(--fg2);font-size:var(--fs-100);min-width:18px;text-align:right;font-variant-numeric:tabular-nums}
+.oln>li .lt{flex:1;min-width:0;line-height:1.3;padding:4px 0}
+.oln>li .oa{display:flex;gap:0;flex:none}
 .ib.xs{width:32px;height:32px;border-radius:50%}
 .ib.xs:disabled{opacity:.35;cursor:default;background:transparent}
 .drop-b{box-shadow:inset 0 3px 0 var(--fg)!important}.drop-a{box-shadow:inset 0 -3px 0 var(--fg)!important}
@@ -1627,17 +1627,17 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 @media (min-width:1600px){.ed{grid-template-columns:180px minmax(0,1fr) 340px}.sgrid{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .mproj .tx span.stt{color:var(--fg);font-weight:var(--fw-semi)}.mproj .tx span.stt.dark{color:var(--on-sel)}
 .d-wrap.f2 .d-main>.f-main{margin-inline:auto;width:100%}
-.oln li .oth{width:56px;flex:none;border-radius:4px;overflow:hidden;outline:1px solid var(--line)}
-.oln li .oth .slide{border-radius:4px}
-.oln li .gr{touch-action:none;cursor:grab;align-self:stretch;width:24px}
+.oln>li .oth{width:56px;flex:none;border-radius:4px;overflow:hidden;outline:1px solid var(--line)}
+.oln>li .oth .slide{border-radius:4px}
+.oln>li .gr{touch-action:none;cursor:grab;align-self:stretch;width:24px}
 .mmove{display:flex;align-items:center;gap:8px}
 .mmove .btn{height:36px}
-@media (max-width:1180px){.oln li .oth{display:none}}
-.dev-mobile .oln li .oth{display:block;width:64px}
+@media (max-width:1180px){.oln>li .oth{display:none}}
+.dev-mobile .oln>li .oth{display:block;width:64px}
 .f-split.ol{grid-template-columns:minmax(0,1fr) 440px}
-.oln li .oth{width:64px}
+.oln>li .oth{width:64px}
 @media (max-width:1180px){.f-split.ol{grid-template-columns:minmax(0,1fr) 340px}}
-@media (max-width:960px){.f-split.ol{grid-template-columns:1fr}.oln li .oth{display:block}}
+@media (max-width:960px){.f-split.ol{grid-template-columns:1fr}.oln>li .oth{display:block}}
 .tsep{width:1px;height:20px;background:var(--line);margin:0 4px}
 .th-add{padding-left:20px}.th-add .addw,.th-add .btn{width:100%}
 .th-add .menu{min-width:240px}
@@ -1710,9 +1710,11 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .th-plus:hover{background:var(--subtle-hover)}
 @keyframes issuePop{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(230,0,35,0)}25%{transform:scale(1.04);box-shadow:0 0 0 4px rgba(230,0,35,.55),0 8px 24px rgba(230,0,35,.18)}55%{transform:scale(.99)}75%{transform:scale(1.015);box-shadow:0 0 0 3px rgba(230,0,35,.4)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(230,0,35,0)}}
 @keyframes flagPop{0%,100%{transform:scale(1)}30%{transform:scale(1.35) rotate(-8deg);background:#E60023;color:#fff}60%{transform:scale(.95)}80%{transform:scale(1.12);background:#E60023;color:#fff}}
-.issue.pop{animation:issuePop .9s cubic-bezier(.2,.8,.2,1) both;position:relative;z-index:1}
-.th-b .flag.pop{animation:flagPop .9s cubic-bezier(.2,.8,.2,1) both}
-@media (prefers-reduced-motion:reduce){.issue.pop{animation:none;box-shadow:0 0 0 3px #E60023;transition:box-shadow .6s}.th-b .flag.pop{animation:none;background:#E60023;color:#fff}}
+.issue.pop,.cmt.pop{animation:issuePop .9s cubic-bezier(.2,.8,.2,1) both;position:relative;z-index:1}
+.th-b .flag.pop,.pinc.pop{animation:flagPop .9s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){.issue.pop,.cmt.pop{animation:none;box-shadow:0 0 0 3px #E60023;transition:box-shadow .6s}.th-b .flag.pop{animation:none;background:#E60023;color:#fff}}
+@keyframes pincPop{0%,100%{transform:scale(1)}30%{transform:scale(1.4)}60%{transform:scale(.95)}80%{transform:scale(1.15)}}
+.pinc.pop{animation:pincPop .9s cubic-bezier(.2,.8,.2,1) both}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2041,7 +2043,8 @@ function dPreview(){const open=S.shareOpen;return shell(fhead(`Stillwater · Dec
  `<div class="f-split wide" style="${open?'':'grid-template-columns:1fr'}"><div class="f-main wash pvw"><div class="stagebox">${slideHTML(S.pv)}</div>${pvNav()}<div class="pvtools">${addMenuHTML('P','btn btn-secondary sm')}${slideDelBtn('P','btn btn-ghost sm')}</div><div class="strip">${strip(S.pv,'pvGo')}</div></div>${open?`<aside class="f-side">${sharePanel()}<div class="foot"><button class="btn btn-secondary" data-a="closeShare">Cancel</button>${S.share.mode==='link'?`<button class="btn btn-primary" data-a="send" ${S.sending?'aria-disabled="true"':''}>${S.sending?'<span class="spin"></span>':'Send link'}</button>`:`<button class="btn btn-primary" data-a="download">Download ${S.share.fmt}</button>`}</div></aside>`:''}</div>`);}
 
 function openC(){return S.comments.filter(c=>c.state==='open');}
-function cmtCard(c,m){const on=S.csel===c.n;const L=slides();return `<div class="cmt${on?' on':''}" data-a="selC" data-v="${c.n}"><button class="csel" data-a="selC" data-v="${c.n}" aria-pressed="${on}" aria-label="Comment ${c.n} from Nora on slide ${c.slide+1}: ${esc(c.t)}"><span class="who"><span class="num" aria-hidden="true">${c.n}</span>${nora}<span><b>Nora · Stillwater</b><span>Slide ${c.slide+1} · ${c.ago}</span></span></span><span class="ct">${esc(c.t)}</span></button>
+function popAttn(main,extra,focusSel){requestAnimationFrame(()=>{const its=[...document.querySelectorAll(main)];const fl=[...document.querySelectorAll(extra)];const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;if(its[0])its[0].scrollIntoView({block:'center',behavior:rm?'auto':'smooth'});[...its,...fl].forEach((e,i)=>{e.classList.remove('pop');void e.offsetWidth;e.style.animationDelay=(i<its.length?i:i-its.length)*120+'ms';e.classList.add('pop');e.addEventListener('animationend',()=>{e.classList.remove('pop');e.style.animationDelay='';},{once:true});});const f=its[0]&&its[0].querySelector(focusSel);if(f)setTimeout(()=>f.focus({preventScroll:true}),350);});}
+function cmtCard(c,m){const on=S.csel===c.n;const L=slides();return `<div class="cmt${on?' on':''}${c.state==='open'?' open':''}" data-a="selC" data-v="${c.n}"><button class="csel" data-a="selC" data-v="${c.n}" aria-pressed="${on}" aria-label="Comment ${c.n} from Nora on slide ${c.slide+1}: ${esc(c.t)}"><span class="who"><span class="num" aria-hidden="true">${c.n}</span>${nora}<span><b>Nora · Stillwater</b><span>Slide ${c.slide+1} · ${c.ago}</span></span></span><span class="ct">${esc(c.t)}</span></button>
  ${c.rep.map(r=>`<div class="rep"><span class="rby">${av('Claire','xs')}<b>You</b></span>${esc(r)}</div>`).join('')}
  ${S.reply===c.n?`<div class="lrow"><input class="inp" id="rep-in" data-k="replyTxt" placeholder="Reply to Nora" aria-label="Reply to Nora"><button class="btn btn-dark sm" data-a="sendReply" data-v="${c.n}" style="height:48px">Send</button></div>`:''}
  ${c.state==='open'?`<div class="acts"><button class="btn btn-ghost sm" data-a="reply" data-v="${c.n}">Reply</button><button class="btn btn-secondary sm" data-a="revise" data-v="${c.n}">Revise slide</button><button class="btn btn-ghost sm" data-a="resolve" data-v="${c.n}">Resolve</button></div>`:`<div class="acts"><span class="stt ok">${I('check','sm')}Resolved</span><button class="btn btn-ghost sm" data-a="reopenC" data-v="${c.n}">Reopen</button></div>`}</div>`;}
@@ -2135,7 +2138,7 @@ function modal(){const M=S.modal;if(!M)return '';let body='';
  else if(M.k==='credit'){const k=conceptImgs('stone')[2];body=`<div class="row"><h2>Add a credit</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div><div class="row">${`<span style="width:64px;flex:none;border-radius:8px;overflow:hidden">${img(k)}</span>`}<span><b>${esc(T[k])}</b><br><span class="help">Saved without a creator. Add who made it so the slide credits them.</span></span></div>
   <div class="field"><label for="credit-in">Creator or source</label><input class="inp" id="credit-in" data-k="credit" value="${esc(S.credit)}" placeholder="For example, @fieldnotesstudio"></div><div class="foot"><button class="btn btn-secondary" data-a="closeModal">Cancel</button><button class="btn btn-primary" data-a="saveCredit">Add credit</button></div>`;}
  else if(M.k==='shareAnyway'){const n=openIssues();body=`<h2>${n} issue${n>1?'s':''} still open</h2><p class="muted" style="margin:0">Nora will see the deck as it is now. You can fix them first, or share anyway.</p><div class="foot"><button class="btn btn-secondary" data-a="reviewIssues">Review issues</button><button class="btn btn-primary" data-a="shareGo">Share anyway</button></div>`;}
- else if(M.k==='approve'){body=`<h2>Mark the deck approved?</h2><p class="muted" style="margin:0">Do this once Nora has said yes. The deck is marked Approved and filed under Stillwater in Client projects, with its board and files.</p>${openC().length?`<p class="small" style="margin:0">${openC().length} comment${openC().length>1?'s are':' is'} still open. They stay with the deck.</p>`:''}<div class="foot"><button class="btn btn-secondary" data-a="closeModal">Not yet</button><button class="btn btn-primary" data-a="approveGo">Mark approved</button></div>`;}
+ else if(M.k==='approve'){body=`<h2>Mark the deck approved?</h2><p class="muted" style="margin:0">Do this once Nora has said yes. The deck is marked Approved and filed under Stillwater in Client projects, with its board and files.</p>${openC().length?`<p class="small" style="margin:0">${openC().length} comment${openC().length>1?'s are':' is'} still open. They stay with the deck.</p>`:''}<div class="foot">${openC().length?`<button class="btn btn-secondary" data-a="reviewComments">Review comments</button>`:`<button class="btn btn-secondary" data-a="closeModal">Not yet</button>`}<button class="btn btn-primary" data-a="approveGo">Mark approved</button></div>`;}
  else if(M.k==='outline'){body=`<div class="row"><h2>Deck outline</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${outline()}${brandAssets()}`;}
  else if(M.k==='issues'){body=`<div class="row"><h2 style="flex:1">Before you share</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${issueCards()}<div class="foot"><button class="btn btn-dark" data-a="closeModal">Done</button></div>`;}
  return `<div class="modal-bg" data-a="bgClose"><div class="modal" role="dialog" aria-modal="true">${body}</div></div>`;}
@@ -2204,7 +2207,8 @@ const A={
  addCredit:()=>{S.slide=stoneIdx();S.modal={k:'credit'};render();const i=$('#credit-in');i&&i.focus();},
  saveCredit:()=>{const v=($('#credit-in')||{}).value||'';if(!v.trim()){toast('Add a name or a link',{err:true});return;}S.credit=v.trim();S.issues.credit='fixed';S.modal=null;render();toast('Credit added');},
  mIssues:()=>{S.modal={k:'issues'};render();},
- reviewIssues:()=>{S.modal=S.dev==='mobile'?{k:'issues'}:null;render();requestAnimationFrame(()=>{const its=[...document.querySelectorAll('.issue:not(.done)')];const fl=[...document.querySelectorAll('.th-b .flag')];if(its[0])its[0].scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});[...its,...fl].forEach((e,i)=>{e.classList.remove('pop');void e.offsetWidth;e.style.animationDelay=(i%its.length||0)*120+'ms';e.classList.add('pop');e.addEventListener('animationend',()=>{e.classList.remove('pop');e.style.animationDelay='';},{once:true});});const b=its[0]&&its[0].querySelector('.acts .btn');if(b)setTimeout(()=>b.focus({preventScroll:true}),350);});},
+ reviewIssues:()=>{S.modal=S.dev==='mobile'?{k:'issues'}:null;render();popAttn('.issue:not(.done)','.th-b .flag','.acts .btn');},
+ reviewComments:()=>{S.modal=null;S.ctab='open';render();popAttn('.cmt.open','.pinc','.csel');},
  share:()=>{if(openIssues()){S.modal={k:'shareAnyway'};render();return;}A.shareGo();},
  shareGo:()=>{S.pv=0;go('preview',{set:{shareOpen:true}});},
  present:el=>{S.present={i:+el.dataset.v||0};render();},endPresent:()=>{S.present=null;render();},
