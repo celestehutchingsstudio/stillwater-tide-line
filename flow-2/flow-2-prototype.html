@@ -1841,6 +1841,9 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .cv.bcol>span{overflow:hidden;min-height:0;min-width:0;display:block}
 .cv.bcol>.b0{grid-row:1/3}
 .cv.bcol img{width:100%;height:100%;object-fit:cover;display:block}
+.mdet .lnk-row,button.lnk-row{border-radius:var(--r-400)}
+.cph h1,.client h2{line-height:1.15}
+.mf-cv{box-shadow:none;outline:1px solid var(--line)}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2282,7 +2285,7 @@ function modal(){const M=S.modal;if(!M)return '';let body='';
  else if(M.k==='outline'){body=`<div class="row"><h2>Deck outline</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${outline()}${brandAssets()}`;}
  else if(M.k==='issues'&&S.dev==='mobile'){const n=openIssues();body=`<div class="grab" aria-hidden="true"></div><div class="row mis-hd"><div class="tt"><h2>Before you share</h2><span class="help">${n?`${n} thing${n>1?'s':''} to check. Pinterest looks at image quality, rights and credits.`:'Everything is checked. Your deck is ready to share.'}</span></div><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${n?'':`<div class="allclear">${I('check','sm')}Ready to share</div>`}${mIssueCards()}<div class="foot mis-ft"><button class="btn ${n?'btn-secondary':'btn-primary'}" data-a="closeModal">${n?'Done for now':'Done'}</button></div>`;}
  else if(M.k==='issues'){body=`<div class="row"><h2 style="flex:1">Before you share</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${issueCards()}<div class="foot"><button class="btn btn-dark" data-a="closeModal">Done</button></div>`;}
- return `<div class="modal-bg" data-a="bgClose"><div class="modal" role="dialog" aria-modal="true">${body}</div></div>`;}
+ return `<div class="modal-bg" data-a="bgClose"><div class="modal" role="dialog" aria-modal="true" aria-label="${({move:'Move Pins',credit:'Add a credit',approve:'Mark the deck approved',outline:'Deck outline',issues:'Before you share'})[M.k]||'Dialog'}">${body}</div></div>`;}
 function present(){const i=S.present.i,n=slides().length;return `<div class="present" role="dialog" aria-label="Presenting"><button class="ib x" data-a="endPresent" aria-label="Exit presentation">${I('x')}</button>${slideHTML(i)}<div class="pc"><button class="ib" data-a="pres" data-v="-1" aria-label="Previous slide">${I('left')}</button><span>${i+1} / ${n}</span><button class="ib" data-a="pres" data-v="1" aria-label="Next slide">${I('right')}</button></div></div>`;}
 function genOverlay(){return `<div class="gen" role="status"><div class="card"><span class="spin"></span>Building your ${slides().length} slides from ${S.themes.length} themes…<span class="help">Adding your palette, credits and brand assets</span></div></div>`;}
 function findSheet(){return `<div class="sheet-bg" data-a="closeFind"></div><div class="sheet" role="dialog" aria-label="Find more" style="top:96px;display:flex;flex-direction:column;gap:12px"><div class="grab"></div>${findPanel(true)}${S.dev==='mobile'?`<div class="f-foot"><span class="help">${refs().length} references · ${NEW.filter(k=>S.saved.has(k)).length} added</span><button class="btn btn-primary" data-a="findDone">Continue</button></div>`:''}</div>`;}
