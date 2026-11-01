@@ -1714,6 +1714,7 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .issue.pop,.cmt.pop{animation:liftPop .7s cubic-bezier(.22,1,.36,1) both;position:relative;z-index:1}
 .th-b .flag.pop,.pinc.pop{animation:dotPop .7s cubic-bezier(.22,1,.36,1) both}
 @media (prefers-reduced-motion:reduce){.issue.pop,.cmt.pop,.th-b .flag.pop,.pinc.pop{animation:none}}
+@media (min-width:961px){.f-split.sbw{align-items:start}.f-split.sbw>.f-side.sb{position:sticky;height:auto;align-self:start}}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -1976,7 +1977,7 @@ function findPanel(m){const list=S.fmode==='like'?LIKE:NEW;return `<div class="r
  <span class="help">${S.fmode==='like'?'More like your 24 Pins':'Based on your 24 Pins and the brief'} · ${NEW.filter(k=>S.saved.has(k)).length} of 6 saved</span>${grid(list,findPin,2)}`;}
 function dRefs(){const n=refs().length,k=NEW.filter(x=>S.saved.has(x)).length;
  return shell(fhead('Stillwater · Deck',`${S.find?'':`<button class="btn btn-secondary" data-a="findMore">${I('search','sm')}Find more</button>`}<button class="btn btn-primary" data-a="group">Group into themes</button>`)+
- `<div class="f-split" style="${S.find?'':'grid-template-columns:1fr'}"><div class="f-main"><div class="shd"><h2>References</h2><span class="help">${n} Pins${k?` · ${k} new`:''}</span></div>${grid(refs(),refPin,cols(mainW(S.find)))}</div>${S.find?`<aside class="f-side">${findPanel()}</aside>`:''}</div>`);}
+ `<div class="f-split${S.find?' sbw':''}" style="${S.find?'':'grid-template-columns:1fr'}"><div class="f-main"><div class="shd"><h2>References</h2><span class="help">${n} Pins${k?` · ${k} new`:''}</span></div>${grid(refs(),refPin,cols(mainW(S.find)))}</div>${S.find?`<aside class="f-side sb">${findPanel()}</aside>`:''}</div>`);}
 
 const FOCUS={scallop:'50% 28%',sunburst:'50% 40%',pair:'50% 45%',lilyred:'50% 40%',lily:'50% 45%',marbled:'50% 45%',heart:'50% 55%',balm:'50% 45%'};
 function collagePicks(t){let p=t.pins.slice(0,4);if(p.length<3)p=p.concat(THEMES0.find(x=>x.id===t.id).pins.filter(k=>!p.includes(k))).slice(0,3);
@@ -2042,6 +2043,9 @@ function dPreview(){const open=S.shareOpen;return shell(fhead(`Stillwater · Dec
  `<div class="f-split wide" style="${open?'':'grid-template-columns:1fr'}"><div class="f-main wash pvw"><div class="stagebox">${slideHTML(S.pv)}</div>${pvNav()}<div class="pvtools">${addMenuHTML('P','btn btn-secondary sm')}${slideDelBtn('P','btn btn-ghost sm')}</div><div class="strip">${strip(S.pv,'pvGo')}</div></div>${open?`<aside class="f-side">${sharePanel()}<div class="foot"><button class="btn btn-secondary" data-a="closeShare">Cancel</button>${S.share.mode==='link'?`<button class="btn btn-primary" data-a="send" ${S.sending?'aria-disabled="true"':''}>${S.sending?'<span class="spin"></span>':'Send link'}</button>`:`<button class="btn btn-primary" data-a="download">Download ${S.share.fmt}</button>`}</div></aside>`:''}</div>`);}
 
 function openC(){return S.comments.filter(c=>c.state==='open');}
+let sbRO=null;
+function sbFix(){const el=document.querySelector('.f-side.sb');if(sbRO){sbRO.disconnect();sbRO=null;}if(!el)return;const set=()=>{const cs=getComputedStyle(document.documentElement);const off=(parseFloat(cs.getPropertyValue('--ctl'))||56)+(parseFloat(cs.getPropertyValue('--fh'))||0);el.style.top=Math.min(off,innerHeight-el.offsetHeight)+'px';};set();if(window.ResizeObserver){sbRO=new ResizeObserver(set);sbRO.observe(el);}}
+addEventListener('resize',()=>sbFix());
 function popAttn(main,extra,focusSel){requestAnimationFrame(()=>{const its=[...document.querySelectorAll(main)];const fl=[...document.querySelectorAll(extra)];const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;if(its[0])its[0].scrollIntoView({block:'center',behavior:rm?'auto':'smooth'});[...its,...fl].forEach((e,i)=>{e.classList.remove('pop');void e.offsetWidth;e.style.animationDelay=(i<its.length?i:i-its.length)*120+'ms';e.classList.add('pop');e.addEventListener('animationend',()=>{e.classList.remove('pop');e.style.animationDelay='';},{once:true});});const f=its[0]&&its[0].querySelector(focusSel);if(f)setTimeout(()=>f.focus({preventScroll:true}),350);});}
 function cmtCard(c,m){const on=S.csel===c.n;const L=slides();return `<div class="cmt${on?' on':''}${c.state==='open'?' open':''}" data-a="selC" data-v="${c.n}"><button class="csel" data-a="selC" data-v="${c.n}" aria-pressed="${on}" aria-label="Comment ${c.n} from Nora on slide ${c.slide+1}: ${esc(c.t)}"><span class="who"><span class="num" aria-hidden="true">${c.n}</span>${nora}<span><b>Nora · Stillwater</b><span>Slide ${c.slide+1} · ${c.ago}</span></span></span><span class="ct">${esc(c.t)}</span></button>
  ${c.rep.map(r=>`<div class="rep"><span class="rby">${av('Claire','xs')}<b>You</b></span>${esc(r)}</div>`).join('')}
@@ -2157,7 +2161,7 @@ function render(nav,toY){const app=$('.app');const y=nav?(toY||0):curY();const m
  app.innerHTML=`<div class="scroller${nav?' enter':''}">${html}</div>${ov}<div class="toasts" aria-live="polite"></div>`;
  document.body.classList.toggle('dev-mobile',m);document.body.classList.toggle('dev-desktop',!m);
  const ns=app.querySelector('.scroller');if(m)ns.scrollTop=y;else window.scrollTo(0,y);
- const fh=app.querySelector('.fh');document.documentElement.style.setProperty('--fh',(fh?fh.offsetHeight:0)+'px');
+ const fh=app.querySelector('.fh');document.documentElement.style.setProperty('--fh',(fh?fh.offsetHeight:0)+'px');sbFix();
  if(fid&&!nav){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});if(sel&&el.setSelectionRange)try{el.setSelectionRange(sel[0],sel[1]);}catch(e){}}}
  syncCtl();}
 
