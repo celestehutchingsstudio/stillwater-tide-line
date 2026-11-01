@@ -1837,6 +1837,10 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .mproj .tx span.mst .sr-only{position:absolute}
 [data-theme="dark"] .mst .sti .g{stroke:#111}
 .mst.ap,.mst.sb,.mst.ip,.mproj .tx span.mst.ap,.mproj .tx span.mst.sb,.mproj .tx span.mst.ip,[data-theme="dark"] .mst.ap,[data-theme="dark"] .mst.sb,[data-theme="dark"] .mst.ip,[data-theme="dark"] .mproj .tx span.mst.ap,[data-theme="dark"] .mproj .tx span.mst.sb,[data-theme="dark"] .mproj .tx span.mst.ip{color:var(--fg)}
+.cv.bcol{display:grid!important;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:var(--surface);place-items:stretch!important}
+.cv.bcol>span{overflow:hidden;min-height:0;min-width:0;display:block}
+.cv.bcol>.b0{grid-row:1/3}
+.cv.bcol img{width:100%;height:100%;object-fit:cover;display:block}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2193,7 +2197,7 @@ function dReview(){const L=slides();const byS={};openC().forEach(c=>byS[c.slide]
 /* client projects */
 function catData(){const tl=S.approved;return [
  {n:'Stillwater',sub:'Fragrance studio · Toronto',projects:[
-  {n:'Tide Line packaging pitch',d:'Nov 2026',st:tl?'Just filed':'In review',dark:tl,items:[{t:'Pitch deck',m:tl?`Deck · ${slides().length} slides · Approved Nov 28`:`Deck · ${slides().length} slides · Waiting on approval`,type:'Decks',sl:0,go:'deck'},{t:'Concept vision',m:'4 themes · Shell, glass, silver, stone',type:'Decks',sl:2,go:'deck2',hl:1},{t:'Timeline and objectives',m:'2 slides · Nov 2026 to Apr 2027',type:'Decks',sl:7,go:'deck7'},{t:'Reference board',m:`Pinterest board · ${refs().length} Pins`,type:'Boards',img:'frosted',go:'board'}]},
+  {n:'Tide Line packaging pitch',d:'Nov 2026',st:tl?'Just filed':'In review',dark:tl,items:[{t:'Pitch deck',m:tl?`Deck · ${slides().length} slides · Approved Nov 28`:`Deck · ${slides().length} slides · Waiting on approval`,type:'Decks',sl:0,go:'deck'},{t:'Concept vision',m:'4 themes · Shell, glass, silver, stone',type:'Decks',sl:2,go:'deck2',hl:1},{t:'Timeline and objectives',m:'2 slides · Nov 2026 to Apr 2027',type:'Decks',sl:7,go:'deck7'},{t:'Reference board',m:`Pinterest board · ${refs().length} Pins`,type:'Boards',board:['frosted','nautilus','scallop'],go:'board'}]},
   {n:'Studio refill card',d:'Sep 2026',st:'Delivered',items:[{t:'Refill card',m:'Print · A6, two sides',type:'Print',wm:['STILLWATER','REFILL CARD','#F6F2EC','#141414',1]},{t:'Print files',m:'PDF and dieline · Sent to printer',type:'Print',wm:['STILLWATER','DIELINE AND FILES','#EDE5DA','#6E655C',1]}]}]},
  {n:'Halden Coffee',sub:'Coffee roaster · Calgary',projects:[
   {n:'Bag and label system',d:'Oct 2026',st:'Delivered',items:[{t:'Bag artwork',m:'Packaging · 250 g and 1 kg',type:'Packaging',wm:['HALDEN','BAG ARTWORK','#3B2A20','#F3EBE2']},{t:'Origin labels',m:'Packaging · 6 labels',type:'Packaging',wm:['HALDEN','ORIGIN LABELS','#C9A27C','#3B2A20']}]},
@@ -2202,7 +2206,7 @@ function catData(){const tl=S.approved;return [
   {n:'Spring catalogue',d:'Mar 2026',st:'Delivered',items:[{t:'Catalogue',m:'Print · 24 pages',type:'Print',wm:['Marrow & Pine','SPRING CATALOGUE','#4B5A3A','#F1EEE4',1]},{t:'Shot list and selects',m:'18 images · Shared folder',type:'Print',wm:['Marrow & Pine','PRODUCT SHOTS','#DCD6C4','#4B5A3A',1]}]},
   {n:'Showroom signage',d:'Jan 2026',st:'Delivered',items:[{t:'Signage set',m:'Print · 9 signs',type:'Print',wm:['Marrow & Pine','SIGNAGE SET','#4B5A3A','#F1EEE4',1]},{t:'Wayfinding deck',m:'Deck · 8 slides',type:'Decks',wm:['Marrow & Pine','WAYFINDING DECK','#EEEBE0','#4B5A3A',1]}]}]}];}
 function catFiltered(){const tab=S.cTab,q=S.cq.trim().toLowerCase();return catData().map(c=>({...c,projects:c.projects.map(p=>({...p,items:p.items.filter(it=>(tab==='All work'||it.type===tab)&&(!q||(c.n+' '+p.n+' '+it.t+' '+it.m).toLowerCase().includes(q)))})).filter(p=>p.items.length)})).filter(c=>c.projects.length);}
-function cover(it,m){if(it.sl!=null)return `<span class="cv">${slideHTML(it.sl)}</span>`;if(it.img)return `<span class="cv">${img(it.img,'')}</span>`;const [w,s,bg,fg,serif]=it.wm;return `<span class="cv" style="background:${bg};color:${fg}"><span class="wm"${serif?' style="font-family:var(--serif)"':''}><span class="w"${m?' style="font-size:9px"':''}>${esc(w)}</span>${m?'':`<span class="s" style="display:block">${esc(s)}</span>`}</span></span>`;}
+function cover(it,m){if(it.board)return `<span class="cv bcol">${it.board.map((k,i)=>`<span class="b${i}">${img(k,'')}</span>`).join('')}</span>`;if(it.sl!=null)return `<span class="cv">${slideHTML(it.sl)}</span>`;if(it.img)return `<span class="cv">${img(it.img,'')}</span>`;const [w,s,bg,fg,serif]=it.wm;return `<span class="cv" style="background:${bg};color:${fg}"><span class="wm"${serif?' style="font-family:var(--serif)"':''}><span class="w"${m?' style="font-size:9px"':''}>${esc(w)}</span>${m?'':`<span class="s" style="display:block">${esc(s)}</span>`}</span></span>`;}
 function delBtn(it,k){return `<button class="del${it.hl&&S.approved?' hl':''}" data-a="openDel" data-v="${esc(it.go||'')}" data-t="${esc(it.t)}">${cover(it)}<b>${esc(it.t)}</b><span class="m">${esc(it.m)}</span></button>`;}
 function stTag(p){return mSt(p);}
 function counts(c){const all=catData().find(x=>x.n===c.n);return `${all.projects.length} projects · ${all.projects.reduce((a,p)=>a+p.items.length,0)} deliverables`;}
