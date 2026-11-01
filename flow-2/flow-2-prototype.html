@@ -1731,6 +1731,19 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .cmt .acts .btn{border-radius:var(--r-200)}
 .nextc .nc-act .btn{border-radius:var(--r-300)}
 .mdet .lnk-row,button.lnk-row{min-height:48px;border-radius:var(--r-300)}
+.fh.fh-setup{padding:16px 24px}
+.fh.fh-setup .row{gap:8px}
+/* smaller rail controls (Gestalt xs 24px), hit area kept at 40px */
+.th-x{width:24px;height:24px;top:-8px;right:-8px;box-shadow:0 0 0 2px var(--bg),0 1px 3px rgba(0,0,0,.18)}
+.th-x .i{width:12px;height:12px}
+.th-x::after{inset:-8px}
+.th-mv .th-plus{width:24px;height:24px;min-width:24px;min-height:24px;position:relative}
+.th-mv .th-plus .i{width:14px;height:14px}
+.th-mv .th-plus::after{content:"";position:absolute;inset:-8px}
+.th-x{width:20px;height:20px;top:-6px;right:-6px}
+.th-x .i{width:10px;height:10px;stroke-width:2.6}
+.th-x::after{inset:-10px}
+.th-mv .th-plus .i{width:12px;height:12px}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -1982,8 +1995,7 @@ function setupFields(){const f=S.form,e=S.errors;return `<div class="grid2">
 function srcChip(){return `<span class="srcchip"><span class="mini">${img('nautilus','')}${img('stones','')}${img('frosted','')}</span>From your board: Stillwater · Tide Line packaging · ${refs().length} Pins</span>`;}
 function refsNote(){const n=refs().length;return n>=30?`<div class="note"><b>${n} Pins, ready to group</b><p>That is a good number for a packaging pitch.</p></div>`:`<div class="note"><b>${n} of about 30 Pins</b><p>Packaging pitches work best with around 30 references. Add a few more, or continue with what you have.</p><button class="btn btn-ghost sm" data-a="findMore">Find more</button></div>`;}
 function dSetup(){
- return shell(`<div class="f-split su" style="--fh:0px"><div class="f-main"><div class="cp2"><div class="row" style="margin-bottom:16px"><button class="ib" data-a="back" aria-label="Close">${I('x')}</button><h1 style="margin:0;font-size:var(--fs-500);flex:1">New client project</h1><button class="btn btn-secondary" data-a="back">Cancel</button><button class="btn btn-primary" data-a="continue">Continue</button></div>
- ${srcChip()}<div class="shd" style="margin-top:24px"><h2>Client and brief</h2></div>${setupFields()}
+ return shell(`<div class="fh fh-setup"><div class="row"><button class="ib" data-a="back" aria-label="Close">${I('x')}</button><h1 style="margin:0;font-size:var(--fs-500);flex:1">New client project</h1><button class="btn btn-secondary" data-a="back">Cancel</button><button class="btn btn-primary" data-a="continue">Continue</button></div></div><div class="f-split su"><div class="f-main"><div class="cp2">${srcChip()}<div class="shd" style="margin-top:24px"><h2>Client and brief</h2></div>${setupFields()}
  <div class="shd"><h2>Deliverables</h2><span class="help">Pick one or more</span></div>${delivCards(false)}</div></div>
  <aside class="f-side" aria-labelledby="su-refs"><div class="su-head"><h2 id="su-refs">References</h2></div>${refsNote()}${grid(refs(),k=>refPin(k),2)}</aside></div>`);}
 
