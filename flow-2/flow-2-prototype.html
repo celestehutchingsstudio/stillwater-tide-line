@@ -1806,6 +1806,32 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .sheet .f-foot{position:sticky;bottom:-32px;z-index:2;margin:4px -16px -32px;padding:12px 16px 28px;background:var(--surface);border-top:1px solid var(--line);display:flex;align-items:center;gap:12px}
 .sheet .f-foot .help{flex:1;min-width:0}
 .sheet .f-foot .btn{flex:none;min-width:140px}
+.mcl{margin-top:24px}
+.mcl-h{display:flex;flex-direction:column;gap:2px;padding-bottom:8px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+.mcl-h h2{margin:0;font-size:var(--fs-400)}
+.mcl-h span{font-size:var(--fs-100);color:var(--fg2)}
+.mfeat{margin:12px 0 8px;padding:12px;border-radius:var(--r-600,24px);background:var(--subtle);display:flex;flex-direction:column;gap:12px}
+.mf-cv{display:block;width:100%;border-radius:var(--r-400);overflow:hidden;box-shadow:var(--shadow-md,0 2px 8px rgba(0,0,0,.12))}
+.mf-cv .cv{display:block;width:100%;aspect-ratio:16/9;overflow:hidden}
+.mf-cv .slide{pointer-events:none;border-radius:0}
+.mf-tx{display:flex;flex-direction:column;gap:4px;padding:0 4px}
+.mf-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.mf-row b{font-size:var(--fs-300);font-weight:600;line-height:1.3}
+.mf-tx>span{font-size:var(--fs-100);color:var(--fg2);line-height:1.4}
+.mf-dels{margin:0;padding:0 0 4px}
+.mf-dels .del b{color:var(--fg)}
+.mst{display:inline-flex;align-items:center;gap:6px;flex:none;font-size:var(--fs-100);font-weight:var(--fw-semi);padding:4px 10px 4px 8px;border-radius:var(--r-pill);background:var(--surface);color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
+.mproj .mst{background:var(--subtle);box-shadow:none}
+.mst i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.mst.ap{background:#dff3e7;color:#0a5b2e;box-shadow:none}
+.mst.ap .i{width:14px;height:14px;stroke-width:2.5}
+.mst.sb i{background:#2b6cd4}
+.mst.ip i{background:#c77a00}
+.mproj .tx span.mst{color:var(--fg)}
+.mproj .tx span.mst.ap{color:#0a5b2e}
+.mproj .cv{width:112px}
+[data-theme="dark"] .mst.ap,[data-theme="dark"] .mproj .tx span.mst.ap{background:#173d27;color:#a8e6c0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mst.ap{background:#173d27;color:#a8e6c0}}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2173,9 +2199,9 @@ function catData(){const tl=S.approved;return [
 function catFiltered(){const tab=S.cTab,q=S.cq.trim().toLowerCase();return catData().map(c=>({...c,projects:c.projects.map(p=>({...p,items:p.items.filter(it=>(tab==='All work'||it.type===tab)&&(!q||(c.n+' '+p.n+' '+it.t+' '+it.m).toLowerCase().includes(q)))})).filter(p=>p.items.length)})).filter(c=>c.projects.length);}
 function cover(it,m){if(it.sl!=null)return `<span class="cv">${slideHTML(it.sl)}</span>`;if(it.img)return `<span class="cv">${img(it.img,'')}</span>`;const [w,s,bg,fg,serif]=it.wm;return `<span class="cv" style="background:${bg};color:${fg}"><span class="wm"${serif?' style="font-family:var(--serif)"':''}><span class="w"${m?' style="font-size:9px"':''}>${esc(w)}</span>${m?'':`<span class="s" style="display:block">${esc(s)}</span>`}</span></span>`;}
 function delBtn(it,k){return `<button class="del${it.hl&&S.approved?' hl':''}" data-a="openDel" data-v="${esc(it.go||'')}" data-t="${esc(it.t)}">${cover(it)}<b>${esc(it.t)}</b><span class="m">${esc(it.m)}</span></button>`;}
-function stTag(p){return `<span class="stt ${p.dark?'dark':''}">${esc(p.st)}</span>`;}
+function stTag(p){return mSt(p);}
 function counts(c){const all=catData().find(x=>x.n===c.n);return `${all.projects.length} projects · ${all.projects.reduce((a,p)=>a+p.items.length,0)} deliverables`;}
-function filedBanner(){return S.approved?`<div class="filed"><span class="stt">${I('clock','sm')}Just filed</span><span>Nora approved the Tide Line packaging pitch on Nov 28. It is filed under Stillwater with its source board and files.</span></div>`:'';}
+function filedBanner(){return S.approved?`<div class="filed"><span class="mst ap">${I('check','sm')}Approved</span><span>Nora approved the Tide Line packaging pitch on Nov 28. It is filed under Stillwater with its source board and files.</span></div>`:'';}
 function catTabs(){return `<div class="tabs" role="tablist" style="margin-top:16px">${['All work','Decks','Packaging','Print'].map(t=>`<button class="tab" role="tab" aria-selected="${S.cTab===t}" data-a="cTab" data-v="${t}">${t}</button>`).join('')}</div>`;}
 function dCatalog(){const data=catFiltered();
  return shell(`<div class="cpg"><div class="cph"><button class="ib" data-a="back" aria-label="Back">${I('back')}</button><div style="flex:1"><h1>Client projects</h1><div class="sub">Every deck and deliverable I have made, filed by client and project</div></div><button class="btn btn-secondary" data-a="cSearch">Search</button><button class="btn btn-primary" data-a="newProject">New project</button></div>
@@ -2224,10 +2250,13 @@ function mReview(){const L=slides();const oc=openC();const cur=S.comments.find(c
 function mCatalog(){const data=catFiltered();return `${mStatus()}<div class="m-head"><button class="ib" data-a="back" aria-label="Back">${I('back')}</button><div class="tt"><h1>Client projects</h1><span>Filed by client and project</span></div><button class="ib" data-a="cSearch" aria-label="Search">${I('search')}</button></div>
  <div class="m-body f">${S.csearch?`<label class="search outline"><span>${I('search')}</span><input type="search" id="cq" value="${esc(S.cq)}" data-k="cq" data-live="cat" placeholder="Search clients and files" aria-label="Search client projects"></label>`:''}
  <div class="tabs" role="tablist" style="gap:16px;margin-top:4px">${['All work','Decks','Packaging','Print'].map(t=>`<button class="tab" role="tab" aria-selected="${S.cTab===t}" data-a="cTab" data-v="${t}">${t}</button>`).join('')}</div>
- ${S.approved?`<div class="filed" style="margin:16px 0 0"><span class="stt">${I('clock','sm')}Just filed</span><span class="small">Tide Line pitch approved Nov 28</span></div>`:''}
- <div id="catlist">${mCatList(data)}</div></div><div class="m-foot"><button class="btn btn-primary" data-a="newProject">New project</button></div>`;}
-function mCatList(data){return data.length?data.map(c=>`<section style="margin-top:24px"><h2 style="margin:0;font-size:var(--fs-400)">${esc(c.n)}</h2><div class="muted small" style="padding-bottom:8px;border-bottom:1px solid var(--line)">${esc(c.sub)} · ${catData().find(x=>x.n===c.n).projects.length} projects</div>
- ${c.projects.map(p=>{const first=p.items[0];const tl=p.n.startsWith('Tide');return `<button class="mproj" data-a="openDel" data-v="${esc(first.go||'')}" data-t="${esc(first.t)}">${cover(first,true)}<span class="tx"><b>${esc(p.n)}</b><span>${p.d} · ${esc(p.items.map(i=>i.t).join(', ').toLowerCase().replace(/^./,x=>x.toUpperCase()))}</span>${stTag(p)}</span></button>${tl?`<div class="mdels">${p.items.slice(0,3).map(delBtn).join('')}</div>`:''}`;}).join('')}</section>`).join(''):`<p class="muted" style="margin-top:24px">Nothing matches “${esc(S.cq)}”.</p>`;}
+  <div id="catlist">${mCatList(data)}</div></div><div class="m-foot"><button class="btn btn-primary" data-a="newProject">New project</button></div>`;}
+const MST={'Studio refill card':'Approved','Bag and label system':'In progress','Rebrand pitch':'Approved','Spring catalogue':'Submitted','Showroom signage':'Approved'};
+function mSt(p){const st=p.n.startsWith('Tide')?(S.approved?'Approved':'Submitted'):(MST[p.n]||'Submitted');const k={Approved:'ap','Submitted':'sb','In progress':'ip'}[st];return `<span class="mst ${k}">${k==='ap'?I('check','sm'):'<i aria-hidden="true"></i>'}${st}</span>`;}
+function mCatList(data){return data.length?data.map(c=>`<section class="mcl"><div class="mcl-h"><h2>${esc(c.n)}</h2><span>${esc(c.sub)} · ${catData().find(x=>x.n===c.n).projects.length} projects</span></div>
+ ${c.projects.map(p=>{const first=p.items[0];const tl=p.n.startsWith('Tide');const meta=`${p.d} · ${esc(p.items.map(i=>i.t).join(', ').toLowerCase().replace(/^./,x=>x.toUpperCase()))}`;
+ return tl?`<article class="mfeat"><button class="mf-cv" data-a="openDel" data-v="${esc(first.go||'')}" data-t="${esc(first.t)}" aria-label="Open ${esc(p.n)} pitch deck">${cover(first,true)}</button><div class="mf-tx"><div class="mf-row"><b>${esc(p.n)}</b>${mSt(p)}</div><span>${S.approved?'Approved by Nora on Nov 28 · ':''}${meta}</span></div>${p.items.length>1?`<div class="mdels mf-dels">${p.items.slice(1,4).map(delBtn).join('')}</div>`:''}</article>`
+ :`<button class="mproj" data-a="openDel" data-v="${esc(first.go||'')}" data-t="${esc(first.t)}">${cover(first,true)}<span class="tx"><b>${esc(p.n)}</b><span>${meta}</span>${mSt(p)}</span></button>`;}).join('')}</section>`).join(''):`<p class="muted" style="margin-top:24px">Nothing matches “${esc(S.cq)}”.</p>`;}
 
 /* ---------- overlays ---------- */
 function modal(){const M=S.modal;if(!M)return '';let body='';
