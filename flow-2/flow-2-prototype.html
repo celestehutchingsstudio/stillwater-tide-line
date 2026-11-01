@@ -1667,7 +1667,7 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .f-split.su{align-items:start}
 .f-split.su>.f-main{position:sticky;top:var(--ctl,56px);max-height:calc(100vh - var(--ctl,56px));overflow-y:auto;overscroll-behavior:contain}
 .f-split.su>.f-side{position:static;height:auto;min-height:calc(100vh - var(--ctl,56px));padding-top:0}
-.f-split.su .su-head{position:sticky;top:var(--ctl,56px);z-index:3;background:var(--bg);display:flex;flex-direction:column;gap:12px;padding:24px 0 16px;margin-bottom:-4px;box-shadow:0 1px 0 var(--line)}
+.f-split.su .su-head{position:sticky;top:var(--ctl,56px);z-index:3;background:var(--bg);padding:24px 0 12px;margin-bottom:-4px}
 .f-split.su .su-head h2{margin:0}
 }
 @media (max-width:960px){.f-split.su .su-head{display:flex;flex-direction:column;gap:12px}.f-split.su .su-head h2{margin:0}}
@@ -1969,7 +1969,7 @@ function dSetup(){
  return shell(`<div class="f-split su" style="--fh:0px"><div class="f-main"><div class="cp2"><div class="row" style="margin-bottom:16px"><button class="ib" data-a="back" aria-label="Close">${I('x')}</button><h1 style="margin:0;font-size:var(--fs-500);flex:1">New client project</h1><button class="btn btn-secondary" data-a="back">Cancel</button><button class="btn btn-primary" data-a="continue">Continue</button></div>
  ${srcChip()}<div class="shd" style="margin-top:24px"><h2>Client and brief</h2></div>${setupFields()}
  <div class="shd"><h2>Deliverables</h2><span class="help">Pick one or more</span></div>${delivCards(false)}</div></div>
- <aside class="f-side" aria-labelledby="su-refs"><div class="su-head"><h2 id="su-refs">References</h2>${refsNote()}</div>${grid(refs(),k=>refPin(k),2)}</aside></div>`);}
+ <aside class="f-side" aria-labelledby="su-refs"><div class="su-head"><h2 id="su-refs">References</h2></div>${refsNote()}${grid(refs(),k=>refPin(k),2)}</aside></div>`);}
 
 function findPanel(m){const list=S.fmode==='like'?LIKE:NEW;return `<div class="row"><h2 style="flex:1;margin:0;font-size:var(--fs-400)">Find more</h2><button class="ib" data-a="closeFind" aria-label="Close Find more">${I('x')}</button></div>
  <label class="search outline"><span>${I('search')}</span><input type="search" value="${esc(S.fq)}" data-k="fq" aria-label="Search for references"></label>
