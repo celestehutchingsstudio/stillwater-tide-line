@@ -1360,9 +1360,11 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .ib.xs{width:32px;height:32px;border-radius:50%}
 .ib.xs:disabled{opacity:.35;cursor:default;background:transparent}
 .drop-b{box-shadow:inset 0 3px 0 var(--fg)!important}.drop-a{box-shadow:inset 0 -3px 0 var(--fg)!important}
-.addw{position:relative}
+.addw{position:relative;display:inline-block}
+.addw.O{display:block}
 .addbtn{width:100%}
-.addw .menu{position:absolute;left:0;right:0;top:100%;margin-top:6px;z-index:30}
+.addw .menu{position:absolute;left:0;top:100%;margin-top:6px;z-index:40;min-width:260px}
+.addw.O .menu{right:0}
 .addw .mi{align-items:flex-start;text-align:left;padding:10px 12px}
 .addw .mi b{display:block;font-size:var(--fs-200)}
 .th-w{display:flex;flex-direction:column;gap:4px;border-radius:var(--r-200);cursor:grab}
@@ -1558,7 +1560,7 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .slide .ty .sh{font-size:calc(var(--u)*9)}
 .slide .ty p{margin:calc(var(--u)*3) 0 0;font-size:calc(var(--u)*3.2);line-height:1.4;color:#3a3530}
 .slide .ty .em{font-size:calc(var(--u)*2.6);color:var(--taupe);margin-top:calc(var(--u)*2)}
-.fr .slide,.strip .slide,.sgrid .slide,.th-b .slide,.del .slide{pointer-events:none;border-radius:6px}
+.fr .slide,.oth .slide,.strip .slide,.sgrid .slide,.th-b .slide,.del .slide{pointer-events:none;border-radius:6px}
 
 /* ---------- mobile ---------- */
 .m-head .tt{flex:1;min-width:0;display:flex;flex-direction:column}
@@ -1625,6 +1627,92 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 @media (min-width:1600px){.ed{grid-template-columns:180px minmax(0,1fr) 340px}.sgrid{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .mproj .tx span.stt{color:var(--fg);font-weight:var(--fw-semi)}.mproj .tx span.stt.dark{color:var(--on-sel)}
 .d-wrap.f2 .d-main>.f-main{margin-inline:auto;width:100%}
+.oln li .oth{width:56px;flex:none;border-radius:4px;overflow:hidden;outline:1px solid var(--line)}
+.oln li .oth .slide{border-radius:4px}
+.oln li .gr{touch-action:none;cursor:grab;align-self:stretch;width:24px}
+.mmove{display:flex;align-items:center;gap:8px}
+.mmove .btn{height:36px}
+@media (max-width:1180px){.oln li .oth{display:none}}
+.dev-mobile .oln li .oth{display:block;width:64px}
+.f-split.ol{grid-template-columns:minmax(0,1fr) 440px}
+.oln li .oth{width:64px}
+@media (max-width:1180px){.f-split.ol{grid-template-columns:minmax(0,1fr) 340px}}
+@media (max-width:960px){.f-split.ol{grid-template-columns:1fr}.oln li .oth{display:block}}
+.tsep{width:1px;height:20px;background:var(--line);margin:0 4px}
+.th-add{padding-left:20px}.th-add .addw,.th-add .btn{width:100%}
+.th-add .menu{min-width:240px}
+.th-mv{flex-wrap:wrap}
+.pvtools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mmove .addw .menu{bottom:100%;top:auto;margin:0 0 6px}
+.cmt .num,.pinc{background:#E60023;color:#fff;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:0}
+.cmt .num{width:26px;height:26px;font-size:14px;box-shadow:0 0 0 2px var(--bg)}
+.pinc{width:28px;height:28px;font-size:14px;box-shadow:0 0 0 2px #fff,0 2px 6px rgba(0,0,0,.35)}
+.cmt .who .num{width:26px;height:26px;font-size:14px;line-height:1;color:#fff;background:#E60023;font-weight:800}
+.nextc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-600);padding:20px;display:flex;flex-direction:column;gap:16px}
+.nextc .nc-top{display:flex;gap:12px;align-items:flex-start}
+.nextc .nc-ic{flex:none;width:40px;height:40px;border-radius:50%;background:var(--subtle);display:grid;place-items:center;color:var(--fg)}
+.nextc .nc-ic .i{width:20px;height:20px}
+.nextc h2{margin:0;font-size:var(--fs-300);font-weight:var(--fw-bold);line-height:1.25;letter-spacing:-.01em}
+.nextc .nc-top p{margin:4px 0 0;color:var(--fg2);font-size:var(--fs-200)}
+.nextc .nc-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;background:var(--wash,var(--subtle));border-radius:var(--r-400);padding:6px}
+.nextc .nc-steps li{display:flex;gap:12px;align-items:center;padding:8px;font-size:var(--fs-200);line-height:1.35}
+.nextc .nc-b{flex:none;width:32px;height:32px;border-radius:50%;background:var(--surface);display:grid;place-items:center;box-shadow:0 0 0 1px var(--line)}
+.nextc .nc-b .i{width:16px;height:16px}
+.nextc .nc-l{margin:0;font-size:var(--fs-100);font-weight:var(--fw-semi);color:var(--fg2)}
+.nextc .nc-act{display:grid;grid-template-columns:1fr;gap:8px;margin-top:-8px}
+.nextc .nc-act .btn{width:100%;justify-content:center;gap:6px;border-radius:var(--r-pill)}
+.nextc .nc-act .btn .i{width:16px;height:16px;flex:none}
+@media (max-width:960px) and (min-width:521px){.nextc .nc-act{grid-template-columns:1fr 1fr}}
+@media (min-width:961px){
+.f-split.su{align-items:start}
+.f-split.su>.f-main{position:sticky;top:var(--ctl,56px);max-height:calc(100vh - var(--ctl,56px));overflow-y:auto;overscroll-behavior:contain}
+.f-split.su>.f-side{position:static;height:auto;min-height:calc(100vh - var(--ctl,56px));padding-top:0}
+.f-split.su .su-head{position:sticky;top:var(--ctl,56px);z-index:3;background:var(--bg);display:flex;flex-direction:column;gap:12px;padding:24px 0 16px;margin-bottom:-4px;box-shadow:0 1px 0 var(--line)}
+.f-split.su .su-head h2{margin:0}
+}
+@media (max-width:960px){.f-split.su .su-head{display:flex;flex-direction:column;gap:12px}.f-split.su .su-head h2{margin:0}}
+.brand{display:flex;flex-direction:column;gap:16px;padding:16px;border-radius:var(--r-400);background:var(--subtle);container-type:inline-size}
+.brand h3{margin:0;font-size:var(--fs-300);font-weight:var(--fw-bold)}
+.brand .bgrp{display:flex;flex-direction:column;gap:8px}
+.brand .blab{font-size:12px;font-weight:var(--fw-semi);color:var(--fg2)}
+.brand .logos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.brand .logos figure{margin:0;min-width:0;display:flex;flex-direction:column;gap:6px}
+.brand .logos .lg{height:52px;padding:0 10px;overflow:hidden;display:grid;place-items:center;border-radius:var(--r-300)}
+.brand .logos .lg span{white-space:nowrap;line-height:1}
+.brand .logos .lg.a{font-size:clamp(11px,4.2cqi,15px);letter-spacing:.22em}
+.brand .logos .lg.b{font-size:clamp(9px,3cqi,11px);letter-spacing:.16em}
+.brand .logos figcaption{font-size:12px;color:var(--fg2);line-height:1.3}
+.brand .sw{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;justify-content:stretch}
+.brand .sw div{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0;font-size:12px;text-align:center}
+.brand .sw i{width:32px;height:32px;margin-bottom:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12),0 0 0 1px var(--line)}
+.brand .sw b,.brand .sw span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brand .sw span{font-size:10px;font-variant-numeric:tabular-nums}
+.brand .tfaces{display:flex;flex-direction:column;background:var(--surface);border-radius:var(--r-300);overflow:hidden}
+.brand .tface{display:grid;grid-template-columns:40px 1fr;align-items:center;gap:10px;padding:10px 12px;margin:0;font-size:var(--fs-100)}
+.brand .tface+.tface{border-top:1px solid var(--line)}
+.brand .tface>span:last-child{display:flex;flex-direction:column;line-height:1.3;color:var(--fg2);min-width:0}
+.brand .tface b{color:var(--fg);font-weight:var(--fw-semi)}
+.brand .tface .aa{font-size:24px;line-height:1;text-align:center;margin:0}
+@container (max-width:250px){.brand .sw i{width:26px;height:26px}.brand .sw span{display:none}}
+.brand .logos figcaption{display:flex;flex-direction:column}
+.brand .logos figcaption b{color:var(--fg);font-weight:var(--fw-semi)}
+.th-w{position:relative}
+.th-x{position:absolute;top:-8px;right:-8px;z-index:3;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--sel);color:var(--on-sel);box-shadow:0 0 0 2px var(--bg),0 2px 6px rgba(0,0,0,.25);cursor:pointer;transition:transform var(--dur-fast,120ms)}
+.th-x:hover{background:var(--accent);color:var(--on-accent)}
+.th-x:active{transform:scale(.92)}
+.th-x:disabled{opacity:.4;cursor:not-allowed}
+.th-x .i{width:14px;height:14px;stroke-width:2.4}
+.th-x::after{content:"";position:absolute;inset:-8px}
+.th-mv{display:grid;grid-template-columns:1fr auto auto 1fr;align-items:center;gap:4px;padding-left:20px;flex-wrap:nowrap}
+.th-mv .addw{justify-self:end}
+.th-mv .addw .menu{left:0;right:auto}
+.th-plus{background:var(--subtle)}
+.th-plus:hover{background:var(--subtle-hover)}
+@keyframes issuePop{0%{transform:scale(1);box-shadow:0 0 0 0 rgba(230,0,35,0)}25%{transform:scale(1.04);box-shadow:0 0 0 4px rgba(230,0,35,.55),0 8px 24px rgba(230,0,35,.18)}55%{transform:scale(.99)}75%{transform:scale(1.015);box-shadow:0 0 0 3px rgba(230,0,35,.4)}100%{transform:scale(1);box-shadow:0 0 0 0 rgba(230,0,35,0)}}
+@keyframes flagPop{0%,100%{transform:scale(1)}30%{transform:scale(1.35) rotate(-8deg);background:#E60023;color:#fff}60%{transform:scale(.95)}80%{transform:scale(1.12);background:#E60023;color:#fff}}
+.issue.pop{animation:issuePop .9s cubic-bezier(.2,.8,.2,1) both;position:relative;z-index:1}
+.th-b .flag.pop{animation:flagPop .9s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){.issue.pop{animation:none;box-shadow:0 0 0 3px #E60023;transition:box-shadow .6s}.th-b .flag.pop{animation:none;background:#E60023;color:#fff}}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -1703,6 +1791,7 @@ trash:'<path d="M4.5 7h15M9.5 7V5.5A1.5 1.5 0 0 1 11 4h2a1.5 1.5 0 0 1 1.5 1.5V7
 grip:'<circle cx="9" cy="6" r="1.3"/><circle cx="15" cy="6" r="1.3"/><circle cx="9" cy="12" r="1.3"/><circle cx="15" cy="12" r="1.3"/><circle cx="9" cy="18" r="1.3"/><circle cx="15" cy="18" r="1.3"/>',
 present:'<rect x="3.5" y="4.5" width="17" height="12" rx="2"/><path d="M12 16.5V20M8.5 20h7"/>',
 flag:'<path d="M5.5 21V4h11l-2.5 4 2.5 4h-11"/>',
+trash:'<path d="M4.5 6.5h15M9.5 6.5V4.5h5v2M6.5 6.5l1 13h9l1-13M10 10.5v5.5M14 10.5v5.5"/>',
 swap:'<path d="M4 8h13l-3-3M20 16H7l3 3"/>',
 layout:'<rect x="3.5" y="3.5" width="7" height="17" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
 palette:'<path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.2 0 1.7-.8 1.7-1.6 0-1.3-1.2-1.6-1.2-2.7 0-.9.7-1.4 1.6-1.4h2.2a4.2 4.2 0 0 0 4.2-4.2C20.5 6.6 16.7 3.5 12 3.5z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="14.5" cy="7.5" r="1"/>',
@@ -1838,9 +1927,10 @@ const box=on=>`<span class="mbox${on?' on':''}">${on?I('check','sm'):''}</span>`
 function ck(label,on,act,v){return `<button class="ck" role="checkbox" aria-checked="${on}" data-a="${act}" data-v="${v}">${box(on)}${esc(label)}</button>`;}
 function stepIdx(){return {refs:0,themes:1,template:2,editor:2,preview:3,review:3}[S.screen];}
 function stepTabs(m){return STEPS.map(([k,l],i)=>`<button class="tab" role="tab" data-a="step" data-v="${k}" aria-selected="${stepIdx()===i}"><span class="n">${i+1}</span> ${l}</button>`).join('');}
-function brandAssets(){return `<div class="brand"><h3 style="margin:8px 0 4px;font-size:var(--fs-300)">Brand assets and styles</h3><div class="logos"><div><div class="lg a">STILLWATER</div><small>Client logo · bottom left</small></div><div><div class="lg b">CLAIRE STUDIO</div><small>Your logo · bottom right</small></div></div>
- <div class="sw">${SW.map(([n,c])=>`<div><i style="background:${c}"></i><b>${n}</b><span>${c}</span></div>`).join('')}</div>
- <div class="tface"><span class="aa s">Aa</span>Cormorant Garamond · Slide titles</div><div class="tface"><span class="aa">Aa</span>Inter · Body copy</div></div>`;}
+function brandAssets(){return `<div class="brand"><h3>Brand assets and styles</h3>
+ <div class="bgrp"><span class="blab">Logos</span><div class="logos"><figure><div class="lg a"><span>STILLWATER</span></div><figcaption><b>Client logo</b>Bottom left</figcaption></figure><figure><div class="lg b"><span>CLAIRE STUDIO</span></div><figcaption><b>Your logo</b>Bottom right</figcaption></figure></div></div>
+ <div class="bgrp"><span class="blab">Colours</span><div class="sw">${SW.map(([n,c])=>`<div><i style="background:${c}"></i><b>${n}</b><span>${c}</span></div>`).join('')}</div></div>
+ <div class="bgrp"><span class="blab">Type</span><div class="tfaces"><div class="tface"><span class="aa s">Aa</span><span><b>Cormorant Garamond</b>Slide titles</span></div><div class="tface"><span class="aa">Aa</span><span><b>Inter</b>Body copy</span></div></div></div></div>`;}
 function inp(k,v,o={}){return `<input class="inp${o.err?' err':''}" id="f-${k.replace(/\./g,'-')}" data-k="${k}" value="${esc(v)}" ${o.ph?`placeholder="${esc(o.ph)}"`:''} ${o.type?`type="${o.type}"`:''} aria-label="${esc(o.label||k)}">`;}
 
 /* ============ DESKTOP ============ */
@@ -1874,10 +1964,10 @@ function setupFields(){const f=S.form,e=S.errors;return `<div class="grid2">
 function srcChip(){return `<span class="srcchip"><span class="mini">${img('nautilus','')}${img('stones','')}${img('frosted','')}</span>From your board: Stillwater · Tide Line packaging · ${refs().length} Pins</span>`;}
 function refsNote(){const n=refs().length;return n>=30?`<div class="note"><b>${n} Pins, ready to group</b><p>That is a good number for a packaging pitch.</p></div>`:`<div class="note"><b>${n} of about 30 Pins</b><p>Packaging pitches work best with around 30 references. Add a few more, or continue with what you have.</p><button class="btn btn-ghost sm" data-a="findMore">Find more</button></div>`;}
 function dSetup(){
- return shell(`<div class="f-split" style="--fh:0px"><div class="f-main"><div class="cp2"><div class="row" style="margin-bottom:16px"><button class="ib" data-a="back" aria-label="Close">${I('x')}</button><h1 style="margin:0;font-size:var(--fs-500);flex:1">New client project</h1><button class="btn btn-secondary" data-a="back">Cancel</button><button class="btn btn-primary" data-a="continue">Continue</button></div>
+ return shell(`<div class="f-split su" style="--fh:0px"><div class="f-main"><div class="cp2"><div class="row" style="margin-bottom:16px"><button class="ib" data-a="back" aria-label="Close">${I('x')}</button><h1 style="margin:0;font-size:var(--fs-500);flex:1">New client project</h1><button class="btn btn-secondary" data-a="back">Cancel</button><button class="btn btn-primary" data-a="continue">Continue</button></div>
  ${srcChip()}<div class="shd" style="margin-top:24px"><h2>Client and brief</h2></div>${setupFields()}
  <div class="shd"><h2>Deliverables</h2><span class="help">Pick one or more</span></div>${delivCards(false)}</div></div>
- <aside class="f-side" style="top:var(--ctl,56px);height:calc(100vh - var(--ctl,56px))"><h2>References</h2>${refsNote()}${grid(refs(),k=>refPin(k),2)}</aside></div>`);}
+ <aside class="f-side" aria-labelledby="su-refs"><div class="su-head"><h2 id="su-refs">References</h2>${refsNote()}</div>${grid(refs(),k=>refPin(k),2)}</aside></div>`);}
 
 function findPanel(m){const list=S.fmode==='like'?LIKE:NEW;return `<div class="row"><h2 style="flex:1;margin:0;font-size:var(--fs-400)">Find more</h2><button class="ib" data-a="closeFind" aria-label="Close Find more">${I('x')}</button></div>
  <label class="search outline"><span>${I('search')}</span><input type="search" value="${esc(S.fq)}" data-k="fq" aria-label="Search for references"></label>
@@ -1902,11 +1992,14 @@ function dThemes(){return shell(fhead('Stillwater · Deck',`<button class="btn b
  `<div class="f-main" style="max-width:1200px">${themesIntro()}<div class="tgrid">${S.themes.map(themeCard).join('')}</div>${looseRow()}</div>`);}
 
 function tplPreview(k){return `<div class="pv"><div class="fr">${slideHTML(0)}</div><div class="three">${[2,6,1].map(i=>`<div class="fr">${slideHTML(i)}</div>`).join('')}</div></div>`;}
-function outline(){const L=slides();return `<ol class="oln" aria-label="Deck outline, ${L.length} slides">${L.map((s,i)=>`<li draggable="true" data-drag="${i}"${S.drag===i?' class="dragging"':''}><span class="gr" aria-hidden="true">${I('grip','sm')}</span><span class="no">${i+1}</span><span class="lt">${esc(s.t)}</span><span class="oa"><button class="ib xs" data-a="oMove" data-v="${i}" data-d="-1" aria-label="Move ${esc(sname(s))} up" ${i===0?'disabled':''}>${I('up','sm')}</button><button class="ib xs" data-a="oMove" data-v="${i}" data-d="1" aria-label="Move ${esc(sname(s))} down" ${i===L.length-1?'disabled':''}>${I('down','sm')}</button><button class="ib xs" data-a="oDel" data-v="${i}" aria-label="Delete ${esc(sname(s))}" ${L.length<2?'disabled':''}>${I('trash','sm')}</button></span></li>`).join('')}</ol>
- <div class="addw"><button class="btn btn-secondary addbtn" data-a="addMenu" aria-haspopup="menu" aria-expanded="${S.pop==='add'}">${I('plus','sm')}Add slide</button>${S.pop==='add'?`<div class="menu" role="menu" aria-label="Slide type">${Object.entries(XT).map(([k,x])=>`<button class="mi" role="menuitem" data-a="addSlide" data-v="${k}"><span><b>${x.t}</b><span class="help">${x.d}</span></span></button>`).join('')}</div>`:''}</div>`;}
+function addMenuHTML(ctx,cls='btn btn-secondary',label='Add slide'){const k='add'+ctx;return `<span class="addw ${ctx}"><button class="${cls}" data-a="addMenu" data-v="${ctx}"${label?'':` aria-label="Add a slide after slide ${sIdx(ctx)+1}"`} aria-haspopup="menu" aria-expanded="${S.pop===k}">${I('plus','sm')}${label}</button>${S.pop===k?`<div class="menu" role="menu" aria-label="Slide type">${Object.entries(XT).map(([t,x])=>`<button class="mi" role="menuitem" data-a="addSlide" data-v="${t}" data-ctx="${ctx}"><span><b>${x.t}</b><span class="help">${x.d}</span></span></button>`).join('')}</div>`:''}</span>`;}
+function sIdx(ctx){return ctx==='P'?S.pv:S.slide;}
+function slideDelBtn(ctx,cls='btn btn-ghost',label='Delete slide'){const n=slides().length;return `<button class="${cls}" data-a="delCur" data-v="${ctx}" ${n<2?'disabled':''} aria-label="Delete slide ${sIdx(ctx)+1}">${I('trash','sm')}${label}</button>`;}
+function outline(){const L=slides();return `<ol class="oln" aria-label="Deck outline, ${L.length} slides">${L.map((s,i)=>`<li draggable="true" data-drag="${i}"${S.drag===i?' class="dragging"':''}><span class="gr" aria-hidden="true" title="Drag to reorder">${I('grip','sm')}</span><span class="no">${i+1}</span><span class="oth" aria-hidden="true">${slideHTML(i)}</span><span class="lt">${esc(s.t)}</span><span class="oa"><button class="ib xs" data-a="oMove" data-v="${i}" data-d="-1" aria-label="Move ${esc(sname(s))} up" ${i===0?'disabled':''}>${I('up','sm')}</button><button class="ib xs" data-a="oMove" data-v="${i}" data-d="1" aria-label="Move ${esc(sname(s))} down" ${i===L.length-1?'disabled':''}>${I('down','sm')}</button><button class="ib xs" data-a="oDel" data-v="${i}" aria-label="Delete ${esc(sname(s))}" ${L.length<2?'disabled':''}>${I('trash','sm')}</button></span></li>`).join('')}</ol>
+ ${addMenuHTML('O','btn btn-secondary addbtn')}`;}
 function incChecks(){return `${ck('Colour palette from your Pins',S.inc.palette,'inc','palette')}${ck('Source credits on each slide',S.inc.credits,'inc','credits')}${ck('Speaker notes',S.inc.notes,'inc','notes')}`;}
 function delivChips(){return `<div class="chips" role="group" aria-label="Deliverable"><button class="chip" aria-pressed="true">Deck</button><button class="chip" data-a="soon" data-v="Moodboard">Moodboard</button><button class="chip" data-a="soon" data-v="Project plan">Project plan</button></div>`;}
-function dTemplate(){return shell(fhead('Stillwater · Deck','')+`<div class="f-split"><div class="f-main"><div class="shd"><h2>Which deliverable?</h2></div>${delivChips()}
+function dTemplate(){return shell(fhead('Stillwater · Deck','')+`<div class="f-split ol"><div class="f-main"><div class="shd"><h2>Which deliverable?</h2></div>${delivChips()}
  <div class="shd"><h2>Pick a template</h2><span class="help">You can switch later</span></div><div class="tpls" role="radiogroup" aria-label="Template">${Object.entries(TPL).map(([k,t])=>`<button class="tpl" role="radio" aria-checked="${S.tpl===k}" data-a="tpl" data-v="${k}">${tplPreview(k)}<span class="nm">${t.n}${box(S.tpl===k)}</span><p>${t.d}</p></button>`).join('')}</div>
  <div class="shd"><h2>Include</h2></div><div style="display:flex;gap:24px;flex-wrap:wrap">${incChecks()}</div></div>
  <aside class="f-side"><h2>Deck outline</h2><span class="help" style="margin-top:-8px">Pinterest builds these slides from your themes and insights.</span>${outline()}${brandAssets()}<div class="foot"><button class="btn btn-primary" data-a="generate">Generate deck</button></div></aside></div>`);}
@@ -1922,7 +2015,7 @@ function credits(){const s=slides()[S.slide];const n=s.k==='concept'?3:['cover',
  return `<div class="credits">${I('link','sm')}${n?`${miss?n-1:n} of ${n} sources credited on this slide`:'No images on this slide'}${S.inc.credits?'':' · credits hidden'}</div>`;}
 function tbar(){const s=slides()[S.slide];const nL=s.k==='concept'?4:1;const li=s.k==='concept'?(S.layout[s.id]||0):0;
  return `<div class="tbar" role="toolbar" aria-label="Slide tools"><button class="btn btn-ghost" data-a="swapImg">${I('swap','sm')}Swap image</button><button class="btn btn-ghost" data-a="layout" data-v="1">${I('layout','sm')}Layout</button><span style="position:relative"><button class="btn btn-ghost" data-a="palette" aria-haspopup="menu" aria-expanded="${S.pop==='pal'}">${I('palette','sm')}Palette</button>${S.pop==='pal'?palMenu():''}</span>
- <button class="ib sm" data-a="layout" data-v="-1" aria-label="Previous layout" ${nL<2?'disabled':''}>${I('left','sm')}</button><span class="lay">Layout ${li+1} of ${nL}</span><button class="ib sm" data-a="layout" data-v="1" aria-label="Next layout" ${nL<2?'disabled':''}>${I('right','sm')}</button></div>`;}
+ <button class="ib sm" data-a="layout" data-v="-1" aria-label="Previous layout" ${nL<2?'disabled':''}>${I('left','sm')}</button><span class="lay">Layout ${li+1} of ${nL}</span><button class="ib sm" data-a="layout" data-v="1" aria-label="Next layout" ${nL<2?'disabled':''}>${I('right','sm')}</button><span class="tsep" aria-hidden="true"></span>${addMenuHTML('E','btn btn-ghost','Add')}${slideDelBtn('E','btn btn-ghost','Delete')}</div>`;}
 function palMenu(){return `<div class="menu" role="menu" style="position:absolute;top:100%;left:0;margin-top:6px;z-index:30;min-width:180px"><span class="help" style="padding:4px 12px 8px;display:block">Slide background</span>${Object.entries(BGS).map(([n,c])=>`<button class="mi" role="menuitemradio" aria-checked="${S.bg===n}" data-a="setBg" data-v="${n}"><i style="width:16px;height:16px;border-radius:50%;background:${c};box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);display:inline-block"></i>${n}${S.bg===n?' · current':''}</button>`).join('')}</div>`;}
 function issueCards(){const lo=silverIdx()+1,cr=stoneIdx()+1;const st=v=>v==='open'?'':' done';
  const L=[];
@@ -1930,7 +2023,7 @@ function issueCards(){const lo=silverIdx()+1,cr=stoneIdx()+1;const st=v=>v==='op
  L.push(`<div class="issue${st(S.issues.credit)}"><b>${I(S.issues.credit==='open'?'flag':'check','sm')}<button data-a="goSlide" data-v="${cr-1}" style="font-weight:inherit">Slide ${cr} · Missing credit</button></b>${S.issues.credit==='open'?`<p>The creator for one Pin could not be found.</p><div class="acts"><button class="btn btn-secondary sm" data-a="addCredit">Add credit</button><button class="btn btn-ghost sm" data-a="ignore" data-v="credit">Ignore</button></div>`:`<p>${S.issues.credit==='fixed'?`Credited to ${esc(S.credit)}.`:'Ignored. The slide shares without this credit.'}</p>`}</div>`);
  return L.join('');}
 function preShare(){const n=openIssues();return `<div class="row"><h2 style="flex:1">Before you share</h2>${n?`<span class="tag">${I('alert','sm')}${n} issue${n>1?'s':''}</span>`:''}</div><span class="help" style="margin-top:-8px">Pinterest checks image quality, rights and missing credits.</span>${n?'':`<div class="allclear">${I('check','sm')}Ready to share</div>`}${issueCards()}`;}
-function thumbRail(){const L=slides();return L.map((s,i)=>{const fl=(i===silverIdx()&&S.issues.low==='open')||(i===stoneIdx()&&S.issues.credit==='open');const cur=S.slide===i;return `<div class="th-w${S.drag===i?' dragging':''}" draggable="true" data-drag="${i}"><button class="th-b" data-a="goSlide" data-v="${i}" aria-current="${cur}" aria-label="Slide ${i+1}: ${esc(sname(s))}${fl?', needs a check':''}" aria-keyshortcuts="Alt+ArrowUp Alt+ArrowDown"><span class="n">${i+1}</span><span class="fr">${fl?`<span class="flag">${I('flag','sm')}</span>`:''}${slideHTML(i)}</span></button>${cur?`<span class="th-mv"><button class="ib xs" data-a="tMove" data-d="-1" aria-label="Move slide ${i+1} earlier" ${i===0?'disabled':''}>${I('up','sm')}</button><button class="ib xs" data-a="tMove" data-d="1" aria-label="Move slide ${i+1} later" ${i===L.length-1?'disabled':''}>${I('down','sm')}</button></span>`:''}</div>`;}).join('');}
+function thumbRail(){const L=slides();return L.map((s,i)=>{const fl=(i===silverIdx()&&S.issues.low==='open')||(i===stoneIdx()&&S.issues.credit==='open');const cur=S.slide===i;return `<div class="th-w${S.drag===i?' dragging':''}${cur?' cur':''}" draggable="true" data-drag="${i}"><button class="th-b" data-a="goSlide" data-v="${i}" aria-current="${cur}" aria-label="Slide ${i+1}: ${esc(sname(s))}${fl?', needs a check':''}" aria-keyshortcuts="Alt+ArrowUp Alt+ArrowDown"><span class="n">${i+1}</span><span class="fr">${fl?`<span class="flag">${I('flag','sm')}</span>`:''}${slideHTML(i)}</span></button>${cur?`<button class="th-x" data-a="delCur" data-v="E" ${L.length<2?'disabled':''} aria-label="Delete slide ${i+1}">${I('x','sm')}</button><span class="th-mv"><span></span><button class="ib xs" data-a="tMove" data-d="-1" aria-label="Move slide ${i+1} earlier" ${i===0?'disabled':''}>${I('up','sm')}</button><button class="ib xs" data-a="tMove" data-d="1" aria-label="Move slide ${i+1} later" ${i===L.length-1?'disabled':''}>${I('down','sm')}</button>${addMenuHTML('E3','ib xs th-plus','')}</span>`:''}</div>`;}).join('')+`<div class="th-add">${addMenuHTML('E2','btn btn-secondary sm','Add')}</div>`;}
 function dEditor(){return shell(fhead(`Stillwater · Deck · ${TPL[S.tpl].n} template · Saved`,`<button class="btn btn-secondary" data-a="present" data-v="${S.slide}">Present</button><button class="btn btn-primary" data-a="share">Share</button>`)+
  `<div class="ed"><div class="thumbs" aria-label="Slides">${thumbRail()}</div><div class="canvas">${tbar()}${slideHTML(S.slide)}${copyBox()}${credits()}</div><aside class="f-side">${preShare()}${brandAssets()}</aside></div>`);}
 
@@ -1945,7 +2038,7 @@ function pvNav(){const n=slides().length;return `<div class="spk"><span class="n
 function notesFor(i){const s=slides()[i];return S.notes[s.k==='x'?s.id:s.k]||'';}
 function strip(cur,act){return slides().map((s,i)=>`<button data-a="${act}" data-v="${i}" aria-current="${cur===i}" aria-label="Slide ${i+1}: ${esc(sname(s))}">${slideHTML(i)}</button>`).join('');}
 function dPreview(){const open=S.shareOpen;return shell(fhead(`Stillwater · Deck · ${S.approved?'Approved Nov 28':'Presenter preview'}`,`<button class="btn btn-secondary" data-a="present" data-v="${S.pv}">${I('expand','sm')}Present full screen</button>${open?'':`<button class="btn btn-primary" data-a="openShare">${S.approved||S.sent?'Share again':'Share'}</button>`}`)+
- `<div class="f-split wide" style="${open?'':'grid-template-columns:1fr'}"><div class="f-main wash pvw"><div class="stagebox">${slideHTML(S.pv)}</div>${pvNav()}<div class="strip">${strip(S.pv,'pvGo')}</div></div>${open?`<aside class="f-side">${sharePanel()}<div class="foot"><button class="btn btn-secondary" data-a="closeShare">Cancel</button>${S.share.mode==='link'?`<button class="btn btn-primary" data-a="send" ${S.sending?'aria-disabled="true"':''}>${S.sending?'<span class="spin"></span>':'Send link'}</button>`:`<button class="btn btn-primary" data-a="download">Download ${S.share.fmt}</button>`}</div></aside>`:''}</div>`);}
+ `<div class="f-split wide" style="${open?'':'grid-template-columns:1fr'}"><div class="f-main wash pvw"><div class="stagebox">${slideHTML(S.pv)}</div>${pvNav()}<div class="pvtools">${addMenuHTML('P','btn btn-secondary sm')}${slideDelBtn('P','btn btn-ghost sm')}</div><div class="strip">${strip(S.pv,'pvGo')}</div></div>${open?`<aside class="f-side">${sharePanel()}<div class="foot"><button class="btn btn-secondary" data-a="closeShare">Cancel</button>${S.share.mode==='link'?`<button class="btn btn-primary" data-a="send" ${S.sending?'aria-disabled="true"':''}>${S.sending?'<span class="spin"></span>':'Send link'}</button>`:`<button class="btn btn-primary" data-a="download">Download ${S.share.fmt}</button>`}</div></aside>`:''}</div>`);}
 
 function openC(){return S.comments.filter(c=>c.state==='open');}
 function cmtCard(c,m){const on=S.csel===c.n;const L=slides();return `<div class="cmt${on?' on':''}" data-a="selC" data-v="${c.n}"><button class="csel" data-a="selC" data-v="${c.n}" aria-pressed="${on}" aria-label="Comment ${c.n} from Nora on slide ${c.slide+1}: ${esc(c.t)}"><span class="who"><span class="num" aria-hidden="true">${c.n}</span>${nora}<span><b>Nora · Stillwater</b><span>Slide ${c.slide+1} · ${c.ago}</span></span></span><span class="ct">${esc(c.t)}</span></button>
@@ -1957,7 +2050,7 @@ function commentsPanel(){const t=S.ctab;const list=t==='open'?openC():S.comments
  <div class="chips" role="tablist">${[['open','Open'],['resolved','Resolved'],['versions','Versions']].map(([k,l])=>`<button class="chip" role="tab" aria-selected="${t===k}" data-a="ctab" data-v="${k}">${l}</button>`).join('')}</div>
  ${t==='versions'?versions():list.length?list.map(c=>cmtCard(c)).join(''):`<p class="muted">${t==='open'?'No open comments. Nice.':'Nothing resolved yet.'}</p>`}`;}
 function versions(){return [[2,'Shared Nov 12','Same link, latest version'],[1,'Shared Nov 5','Before the silver and stone changes']].map(([v,d,s])=>`<button class="cmt${S.version===v?' on':''}" data-a="setVer" data-v="${v}"><div class="who">${I('history','sm')}<span><b>Version ${v}${v===2?' · current':''}</b><span>${d}</span></span></div><p class="muted">${s}</p></button>`).join('');}
-function approvalNote(){return S.approved?`<div class="approved">${I('check')}<span><b>Approved Nov 28</b><br>Filed under Stillwater in Client projects.</span><button class="btn btn-white sm" data-a="navCat" style="margin-left:auto">Open</button></div>`:`<div class="note"><b>Once Stillwater approves</b><p>The deck is marked Approved and filed under Stillwater in Client projects, with its board and files.</p><button class="btn btn-ghost sm" data-a="soon" data-v="Start a moodboard">Start a moodboard</button><button class="btn btn-ghost sm" data-a="soon" data-v="Move to production">Move to production</button></div>`;}
+function approvalNote(){return S.approved?`<div class="approved">${I('check')}<span><b>Approved Nov 28</b><br>Filed under Stillwater in Client projects.</span><button class="btn btn-white sm" data-a="navCat" style="margin-left:auto">Open</button></div>`:`<section class="nextc" aria-labelledby="nc-h"><div class="nc-top"><span class="nc-ic">${I('hourglass')}</span><div><h2 id="nc-h">Once Stillwater approves</h2><p>This happens on its own, nothing to do yet.</p></div></div><ul class="nc-steps"><li><span class="nc-b">${I('check')}</span><span>Deck is marked <b>Approved</b></span></li><li><span class="nc-b">${I('folder')}</span><span>Filed under <b>Stillwater</b> in Client projects</span></li><li><span class="nc-b">${I('board')}</span><span>Board and files stay with it</span></li></ul><p class="nc-l">Then pick up the next step</p><div class="nc-act"><button class="btn btn-secondary sm" data-a="soon" data-v="Start a moodboard">${I('collage')}Start a moodboard</button><button class="btn btn-secondary sm" data-a="soon" data-v="Move to production">${I('send')}Move to production</button></div></section>`;}
 function verBtn(){return `<span style="position:relative"><button class="btn btn-secondary sm" data-a="verMenu" aria-haspopup="menu" aria-expanded="${S.pop==='ver'}">${I('history','sm')}Version ${S.version} · shared ${S.version===2?'Nov 12':'Nov 5'}${I('down','sm')}</button>${S.pop==='ver'?`<div class="menu vmenu" role="menu">${[2,1].map(v=>`<button class="mi" role="menuitemradio" aria-checked="${S.version===v}" data-a="setVer" data-v="${v}">Version ${v} · shared ${v===2?'Nov 12':'Nov 5'}</button>`).join('')}</div>`:''}</span>`;}
 function statusLine(){return `<span class="stt ${S.approved?'ok':''}">${I(S.approved?'check':'clock','sm')}${S.approved?'Approved':'Waiting on approval'}</span><span>Nora from Stillwater opened the link 3 times · ${S.comments.length} comments</span>`;}
 function dReview(){const L=slides();const byS={};openC().forEach(c=>byS[c.slide]=c.n);
@@ -2008,13 +2101,13 @@ function mRefs(){const n=refs().length;return `${mStatus()}${mHead('Stillwater �
 function mThemes(){return `${mStatus()}${mHead('Stillwater · Deck',`<button class="ib" data-a="regroup" aria-label="Regroup">${I('undo')}</button>`)}${mSteps()}<div class="m-body f"><div style="height:12px"></div>${themesIntro()}<div class="tgrid">${S.themes.map(themeCard).join('')}</div>${looseRow()}</div><div class="m-foot"><button class="btn btn-primary" data-a="toTemplate">Choose deliverable</button></div>`;}
 function mTemplate(){return `${mStatus()}${mHead('Stillwater · Deck')}${mSteps()}<div class="m-body f" style="display:flex;flex-direction:column;gap:12px"><h2 style="margin:12px 0 0;font-size:var(--fs-400)">Which deliverable?</h2>${delivChips()}<h2 style="margin:8px 0 0;font-size:var(--fs-400)">Pick a template</h2>
  ${Object.entries(TPL).map(([k,t])=>`<button class="mtpl" role="radio" aria-checked="${S.tpl===k}" data-a="tpl" data-v="${k}"><span class="fr">${slideHTML(0)}</span><span class="tx"><b>${t.n}</b><span>${t.d}</span></span>${box(S.tpl===k)}</button>`).join('')}
- <h2 style="margin:8px 0 0;font-size:var(--fs-400)">Include</h2><div>${incChecks()}</div><button class="lnk-row" data-a="mOutline">${I('file','sm')}See the outline · ${slides().length} slides${I('right','sm')}</button></div><div class="m-foot"><button class="btn btn-primary" data-a="generate">Generate deck</button></div>`;}
+ <h2 style="margin:8px 0 0;font-size:var(--fs-400)">Include</h2><div>${incChecks()}</div><h2 style="margin:8px 0 0;font-size:var(--fs-400)">Deck outline</h2><span class="help" style="margin-top:-4px">Drag the handle or use the arrows to change the order.</span>${outline()}</div><div class="m-foot"><button class="btn btn-primary" data-a="generate">Generate deck</button></div>`;}
 function mEditor(){const n=openIssues();return `${mStatus()}${mHead(`Deck · ${TPL[S.tpl].n} template · Saved`,`<button class="ib" data-a="soon" data-v="Deck options" aria-label="More options">${I('more')}</button>`)}<div class="m-body f" style="display:flex;flex-direction:column;gap:12px">
  ${n?`<div class="banner">${I('alert')}<span class="tx"><b>${n} slide${n>1?'s':''} to check before you share</b>${S.issues.low==='open'?`Slide ${silverIdx()+1} low resolution`:''}${S.issues.low==='open'&&S.issues.credit==='open'?' · ':''}${S.issues.credit==='open'?`Slide ${stoneIdx()+1} missing credit`:''}</span><button class="btn btn-ghost sm" data-a="mIssues">Review</button></div>`:`<div class="allclear">${I('check','sm')}Ready to share</div>`}
  ${slideHTML(S.slide)}<div class="chips" role="toolbar" aria-label="Slide tools"><button class="chip" data-a="swapImg">${I('swap','sm')}Swap</button><button class="chip" data-a="layout" data-v="1">${I('layout','sm')}Layout</button><span style="position:relative"><button class="chip" data-a="palette">${I('palette','sm')}Palette</button>${S.pop==='pal'?palMenu():''}</span></div>
- <div class="mstrip" aria-label="Slides">${slides().map((s,i)=>{const fl=(i===silverIdx()&&S.issues.low==='open')||(i===stoneIdx()&&S.issues.credit==='open');return `<button data-a="goSlide" data-v="${i}" aria-current="${S.slide===i}" aria-label="Slide ${i+1}">${fl?`<span class="flag">${I('flag','sm')}</span>`:''}${slideHTML(i)}</button>`;}).join('')}</div>
+ <div class="mstrip" aria-label="Slides">${slides().map((s,i)=>{const fl=(i===silverIdx()&&S.issues.low==='open')||(i===stoneIdx()&&S.issues.credit==='open');return `<button data-a="goSlide" data-v="${i}" aria-current="${S.slide===i}" aria-label="Slide ${i+1}">${fl?`<span class="flag">${I('flag','sm')}</span>`:''}${slideHTML(i)}</button>`;}).join('')}</div><div class="mmove"><span class="small muted">Slide ${S.slide+1} of ${slides().length}</span><span style="flex:1"></span><button class="btn btn-secondary sm" data-a="tMove" data-d="-1" ${S.slide===0?'disabled':''} aria-label="Move slide ${S.slide+1} earlier">${I('left','sm')}Earlier</button><button class="btn btn-secondary sm" data-a="tMove" data-d="1" ${S.slide===slides().length-1?'disabled':''} aria-label="Move slide ${S.slide+1} later">Later${I('right','sm')}</button></div><div class="mmove">${addMenuHTML('E','btn btn-secondary sm','Add slide')}${slideDelBtn('E','btn btn-ghost sm','Delete slide')}</div>
  ${copyBox(true)}${credits()}</div><div class="m-foot"><button class="btn btn-secondary" data-a="present" data-v="${S.slide}">Present</button><button class="btn btn-primary" data-a="share">Share</button></div>`;}
-function mPreview(){return `${mStatus()}${mHead(`${S.approved?'Approved Nov 28':'Presenter preview'}`,`<button class="ib" data-a="present" data-v="${S.pv}" aria-label="Present full screen">${I('present')}</button>`)}${mSteps()}<div class="m-body f" style="display:flex;flex-direction:column;gap:12px;padding-top:16px">${slideHTML(S.pv)}${pvNav()}<div class="mstrip">${strip(S.pv,'pvGo')}</div></div><div class="m-foot"><button class="btn btn-primary" data-a="openShare">${S.sent?'Share again':'Share with your client'}</button></div>`;}
+function mPreview(){return `${mStatus()}${mHead(`${S.approved?'Approved Nov 28':'Presenter preview'}`,`<button class="ib" data-a="present" data-v="${S.pv}" aria-label="Present full screen">${I('present')}</button>`)}${mSteps()}<div class="m-body f" style="display:flex;flex-direction:column;gap:12px;padding-top:16px">${slideHTML(S.pv)}${pvNav()}<div class="pvtools">${addMenuHTML('P','btn btn-secondary sm')}${slideDelBtn('P','btn btn-ghost sm')}</div><div class="mstrip">${strip(S.pv,'pvGo')}</div></div><div class="m-foot"><button class="btn btn-primary" data-a="openShare">${S.sent?'Share again':'Share with your client'}</button></div>`;}
 function mShareSheet(){return `<div class="sheet-bg" data-a="closeShare"></div><div class="sheet" role="dialog" aria-label="Share with your client" style="display:flex;flex-direction:column;gap:12px"><div class="grab"></div><div class="row"><b style="flex:1;font-size:var(--fs-400)">Share with your client</b><button class="ib" data-a="closeShare" aria-label="Close">${I('x')}</button></div>
  <b class="small">${slides().length} slides · cover to thank you</b><div class="mstrip">${strip(S.pv,'pvGo')}</div>${sharePanel(true)}${S.share.mode==='link'?`<button class="btn btn-primary" data-a="send" ${S.sending?'aria-disabled="true"':''}>${S.sending?'<span class="spin"></span>':'Send link'}</button>`:`<button class="btn btn-primary" data-a="download">Download ${S.share.fmt}</button>`}</div>`;}
 function mReview(){const L=slides();const oc=openC();const cur=S.comments.find(c=>c.n===S.csel)||oc[0];const si=cur?cur.slide:S.pv;const here=S.comments.filter(c=>c.slide===si&&(c.state==='open'||c===cur));const others=oc.filter(c=>c.slide!==si);
@@ -2041,7 +2134,7 @@ function modal(){const M=S.modal;if(!M)return '';let body='';
   <div class="foot"><button class="btn btn-dark" data-a="closeModal">Done</button></div>`;}
  else if(M.k==='credit'){const k=conceptImgs('stone')[2];body=`<div class="row"><h2>Add a credit</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div><div class="row">${`<span style="width:64px;flex:none;border-radius:8px;overflow:hidden">${img(k)}</span>`}<span><b>${esc(T[k])}</b><br><span class="help">Saved without a creator. Add who made it so the slide credits them.</span></span></div>
   <div class="field"><label for="credit-in">Creator or source</label><input class="inp" id="credit-in" data-k="credit" value="${esc(S.credit)}" placeholder="For example, @fieldnotesstudio"></div><div class="foot"><button class="btn btn-secondary" data-a="closeModal">Cancel</button><button class="btn btn-primary" data-a="saveCredit">Add credit</button></div>`;}
- else if(M.k==='shareAnyway'){const n=openIssues();body=`<h2>${n} issue${n>1?'s':''} still open</h2><p class="muted" style="margin:0">Nora will see the deck as it is now. You can fix them first, or share anyway.</p><div class="foot"><button class="btn btn-secondary" data-a="closeModal">Review issues</button><button class="btn btn-primary" data-a="shareGo">Share anyway</button></div>`;}
+ else if(M.k==='shareAnyway'){const n=openIssues();body=`<h2>${n} issue${n>1?'s':''} still open</h2><p class="muted" style="margin:0">Nora will see the deck as it is now. You can fix them first, or share anyway.</p><div class="foot"><button class="btn btn-secondary" data-a="reviewIssues">Review issues</button><button class="btn btn-primary" data-a="shareGo">Share anyway</button></div>`;}
  else if(M.k==='approve'){body=`<h2>Mark the deck approved?</h2><p class="muted" style="margin:0">Do this once Nora has said yes. The deck is marked Approved and filed under Stillwater in Client projects, with its board and files.</p>${openC().length?`<p class="small" style="margin:0">${openC().length} comment${openC().length>1?'s are':' is'} still open. They stay with the deck.</p>`:''}<div class="foot"><button class="btn btn-secondary" data-a="closeModal">Not yet</button><button class="btn btn-primary" data-a="approveGo">Mark approved</button></div>`;}
  else if(M.k==='outline'){body=`<div class="row"><h2>Deck outline</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${outline()}${brandAssets()}`;}
  else if(M.k==='issues'){body=`<div class="row"><h2 style="flex:1">Before you share</h2><button class="ib" data-a="closeModal" aria-label="Close">${I('x')}</button></div>${issueCards()}<div class="foot"><button class="btn btn-dark" data-a="closeModal">Done</button></div>`;}
@@ -2092,12 +2185,13 @@ const A={
  tMove:el=>{const i=S.slide,d=+el.dataset.d;if(moveSlide(i,i+d)){render();focusAfter(`[data-a="tMove"][data-d="${d}"]`)||focusAfter('.th-b[aria-current="true"]');toast(`Slide moved to position ${i+d+1}`);}},
  oDel:el=>{const L=slides();const i=+el.dataset.v;if(L.length<2)return;const s=L[i];const k=skey(s);const prevOrder=S.order?S.order.slice():null;S.removed.add(k);if(S.slide>=slides().length)S.slide=slides().length-1;else if(S.slide>i)S.slide--;if(S.pv>=slides().length)S.pv=slides().length-1;render();
   focusAfter(`[data-a="oDel"][data-v="${Math.min(i,slides().length-1)}"]`)||focusAfter('[data-a="addMenu"]');toast(`Deleted “${sname(s)}”`,{icon:'trash',action:'Undo',fn:()=>{S.removed.delete(k);S.order=prevOrder;render();toast('Slide restored');}});},
- addMenu:()=>{S.pop=S.pop==='add'?null:'add';render();if(S.pop==='add')focusAfter('.addw .mi');},
+ addMenu:el=>{const k='add'+(el.dataset.v||'O');S.pop=S.pop===k?null:k;render();if(S.pop===k)focusAfter(`.addw.${el.dataset.v||'O'} .mi`);},
+ delCur:el=>{const ctx=el.dataset.v;A.oDel({dataset:{v:String(sIdx(ctx))}});if(ctx!=='O')focusAfter(ctx==='P'?'[data-a="delCur"]':'.th-b[aria-current="true"]');},
  addSlide:el=>{const ty=el.dataset.v;S.xn++;const id='x'+S.xn;const pins=['sculpt','nautilus','stones','pair','lily','ribshell'];
   const x={k:'x',type:ty,id,key:'x:'+id,t:XT[ty].t+(S.xn>1?' '+S.xn:''),pin:pins[(S.xn-1)%pins.length]};
   S.copy[id]=ty==='section'?'A pause before the next idea.':ty==='text'?'Write a short paragraph here. Tap Edit copy in the editor to change it.':'';S.notes[id]='';
-  const L=slides();const keys=L.map(skey);let at=keys.indexOf('next');if(at<0)at=keys.length;keys.splice(at,0,x.key);S.extra.push(x);S.order=keys;S.pop=null;render();
-  focusAfter(`.oln li:nth-child(${at+1}) [data-a="oDel"]`);toast(`Added “${x.t}” as slide ${at+1}`,{icon:'plus'});},
+  const ctx=el.dataset.ctx||'O';const L=slides();const keys=L.map(skey);let at;if(ctx==='O'){at=keys.indexOf('next');if(at<0)at=keys.length;}else at=sIdx(ctx)+1;keys.splice(at,0,x.key);S.extra.push(x);S.order=keys;S.pop=null;if(ctx==='E'||ctx==='E3')S.slide=at;else if(ctx==='P')S.pv=at;else{if(S.slide>=at)S.slide++;}S.editCopy=false;render();
+  if(ctx==='O')focusAfter(`.oln li:nth-child(${at+1}) [data-a="oDel"]`);else focusAfter(ctx==='P'?'[data-a="addMenu"][data-v="P"]':'.th-b[aria-current="true"]');toast(`Added “${x.t}” as slide ${at+1}`,{icon:'plus'});},
  goSlide:el=>{S.slide=+el.dataset.v;S.editCopy=false;S.modal=null;render();},
  swapImg:()=>{const s=slides()[S.slide];if(s.k!=='concept'){toast('This slide’s image is set by the template',{icon:'image'});return;}S.rot[s.id]=(S.rot[s.id]||0)+1;if(s.id==='silver'&&S.issues.low==='open'&&!conceptImgs('silver').includes('tray')){S.issues.low='fixed';S.swapped=false;}render();toast('Image swapped from the theme’s Pins');},
  layout:el=>{const s=slides()[S.slide];if(s.k!=='concept'){toast('This slide has one layout',{icon:'layout'});return;}S.layout[s.id]=((S.layout[s.id]||0)+(+el.dataset.v)+4)%4;render();},
@@ -2110,6 +2204,7 @@ const A={
  addCredit:()=>{S.slide=stoneIdx();S.modal={k:'credit'};render();const i=$('#credit-in');i&&i.focus();},
  saveCredit:()=>{const v=($('#credit-in')||{}).value||'';if(!v.trim()){toast('Add a name or a link',{err:true});return;}S.credit=v.trim();S.issues.credit='fixed';S.modal=null;render();toast('Credit added');},
  mIssues:()=>{S.modal={k:'issues'};render();},
+ reviewIssues:()=>{S.modal=S.dev==='mobile'?{k:'issues'}:null;render();requestAnimationFrame(()=>{const its=[...document.querySelectorAll('.issue:not(.done)')];const fl=[...document.querySelectorAll('.th-b .flag')];if(its[0])its[0].scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});[...its,...fl].forEach((e,i)=>{e.classList.remove('pop');void e.offsetWidth;e.style.animationDelay=(i%its.length||0)*120+'ms';e.classList.add('pop');e.addEventListener('animationend',()=>{e.classList.remove('pop');e.style.animationDelay='';},{once:true});});const b=its[0]&&its[0].querySelector('.acts .btn');if(b)setTimeout(()=>b.focus({preventScroll:true}),350);});},
  share:()=>{if(openIssues()){S.modal={k:'shareAnyway'};render();return;}A.shareGo();},
  shareGo:()=>{S.pv=0;go('preview',{set:{shareOpen:true}});},
  present:el=>{S.present={i:+el.dataset.v||0};render();},endPresent:()=>{S.present=null;render();},
@@ -2156,6 +2251,11 @@ function focusAfter(sel){const el=document.querySelector(sel);if(el&&!el.disable
 document.addEventListener('dragstart',e=>{const d=e.target.closest&&e.target.closest('[data-drag]');if(!d)return;S.drag=+d.dataset.drag;d.classList.add('dragging');try{e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',d.dataset.drag);}catch(_){}});
 document.addEventListener('dragover',e=>{const d=e.target.closest&&e.target.closest('[data-drag]');if(!d||S.drag==null)return;e.preventDefault();document.querySelectorAll('.drop-b,.drop-a').forEach(x=>x.classList.remove('drop-b','drop-a'));const r=d.getBoundingClientRect();d.classList.add(e.clientY<r.top+r.height/2?'drop-b':'drop-a');});
 document.addEventListener('drop',e=>{const d=e.target.closest&&e.target.closest('[data-drag]');if(!d||S.drag==null)return;e.preventDefault();const r=d.getBoundingClientRect();let to=+d.dataset.drag+(e.clientY<r.top+r.height/2?0:1);const from=S.drag;if(to>from)to--;S.drag=null;if(moveSlide(from,to)){render();toast(`Moved to position ${to+1}`);}else render();});
+let tdrag=null;
+document.addEventListener('pointerdown',e=>{const h=e.target.closest&&e.target.closest('.gr');if(!h||e.pointerType==='mouse')return;const d=h.closest('[data-drag]');if(!d)return;e.preventDefault();tdrag={from:+d.dataset.drag,el:d};d.classList.add('dragging');});
+document.addEventListener('pointermove',e=>{if(!tdrag)return;e.preventDefault();document.querySelectorAll('.drop-b,.drop-a').forEach(x=>x.classList.remove('drop-b','drop-a'));const t=document.elementFromPoint(e.clientX,e.clientY);const d=t&&t.closest('[data-drag]');tdrag.over=null;if(d){const r=d.getBoundingClientRect();const before=e.clientY<r.top+r.height/2;d.classList.add(before?'drop-b':'drop-a');tdrag.over=+d.dataset.drag+(before?0:1);}},{passive:false});
+document.addEventListener('pointerup',()=>{if(!tdrag)return;const {from,over}=tdrag;tdrag=null;let to=over;if(to==null){render();return;}if(to>from)to--;if(moveSlide(from,to)){render();toast(`Moved to position ${to+1}`);}else render();});
+document.addEventListener('pointercancel',()=>{if(tdrag){tdrag=null;render();}});
 document.addEventListener('dragend',()=>{if(S.drag!=null){S.drag=null;render();}});
 document.addEventListener('keydown',e=>{
  if(e.altKey&&(e.key==='ArrowUp'||e.key==='ArrowDown')&&e.target.closest&&e.target.closest('.th-b')){e.preventDefault();A.tMove({dataset:{d:e.key==='ArrowUp'?-1:1}});return;}
