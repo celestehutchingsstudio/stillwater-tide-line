@@ -1844,6 +1844,15 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 .mdet .lnk-row,button.lnk-row{border-radius:var(--r-400)}
 .cph h1,.client h2{line-height:1.15}
 .mf-cv{box-shadow:none;outline:1px solid var(--line)}
+.oln>li[data-odrag]{cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.oln>li.lifting{position:relative;z-index:5;cursor:grabbing;background:var(--surface);box-shadow:0 0 0 1px var(--line),var(--shadow-lg,0 8px 24px rgba(0,0,0,.18));transition:box-shadow .15s}
+.oln>li.lifting .gr{color:var(--fg)}
+.oln>li.dropped{animation:odDrop .4s ease-out}
+@keyframes odDrop{from{background:var(--subtle-hover)}}
+body.odragging,body.odragging *{cursor:grabbing!important}
+@media (prefers-reduced-motion:reduce){.oln>li{transition:none!important}.oln>li.dropped{animation:none}}
+.oln>li button.gr{border-radius:var(--r-200);min-height:32px;background:none;padding:0}
+.oln>li button.gr:focus-visible{outline:2px solid var(--fg);outline-offset:1px}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2125,7 +2134,7 @@ function addMenuHTML(ctx,cls='btn btn-secondary',label='Add slide'){const k='add
 function sIdx(ctx){return ctx==='P'?S.pv:S.slide;}
 function slideDelBtn(ctx,cls='btn btn-ghost',label='Delete slide'){const n=slides().length;return `<button class="${cls}" data-a="delCur" data-v="${ctx}" ${n<2?'disabled':''} aria-label="Delete slide ${sIdx(ctx)+1}">${I('trash','sm')}${label}</button>`;}
 function oTitle(t){if(S.dev!=='mobile')return esc(t);const k=t.indexOf(' · ');return k<0?`<b>${esc(t)}</b>`:`<small>${esc(t.slice(0,k))}</small><b>${esc(t.slice(k+3))}</b>`;}
-function outline(){const L=slides();return `<ol class="oln" aria-label="Deck outline, ${L.length} slides">${L.map((s,i)=>`<li draggable="true" data-drag="${i}"${S.drag===i?' class="dragging"':''}><span class="gr" aria-hidden="true" title="Drag to reorder">${I('grip','sm')}</span><span class="no">${i+1}</span><span class="oth" aria-hidden="true">${slideHTML(i)}</span><span class="lt">${oTitle(s.t)}</span><span class="oa"><button class="ib xs" data-a="oMove" data-v="${i}" data-d="-1" aria-label="Move ${esc(sname(s))} up" ${i===0?'disabled':''}>${I('up','sm')}</button><button class="ib xs" data-a="oMove" data-v="${i}" data-d="1" aria-label="Move ${esc(sname(s))} down" ${i===L.length-1?'disabled':''}>${I('down','sm')}</button><button class="ib xs" data-a="oDel" data-v="${i}" aria-label="Delete ${esc(sname(s))}" ${L.length<2?'disabled':''}>${I('trash','sm')}</button></span></li>`).join('')}</ol>
+function outline(){const L=slides();return `<ol class="oln" aria-label="Deck outline, ${L.length} slides">${L.map((s,i)=>`<li data-odrag="${i}"><button type="button" class="gr" data-okey="${i}" title="Drag to reorder" aria-label="Reorder ${esc(sname(s))}, slide ${i+1} of ${L.length}. Press up or down arrow to move.">${I('grip','sm')}</button><span class="no">${i+1}</span><span class="oth" aria-hidden="true">${slideHTML(i)}</span><span class="lt">${oTitle(s.t)}</span><span class="oa"><button class="ib xs" data-a="oDel" data-v="${i}" aria-label="Delete ${esc(sname(s))}" ${L.length<2?'disabled':''}>${I('trash','sm')}</button></span></li>`).join('')}</ol>
  ${addMenuHTML('O','btn btn-secondary addbtn')}`;}
 function incChecks(){return `${ck('Colour palette from your Pins',S.inc.palette,'inc','palette')}${ck('Source credits on each slide',S.inc.credits,'inc','credits')}${ck('Speaker notes',S.inc.notes,'inc','notes')}`;}
 function delivChips(){return `<div class="chips" role="group" aria-label="Deliverable"><button class="chip" aria-pressed="true">Deck</button><button class="chip" data-a="soon" data-v="Moodboard">Moodboard</button><button class="chip" data-a="soon" data-v="Project plan">Project plan</button></div>`;}
@@ -2241,7 +2250,7 @@ function mRefs(){const n=refs().length;return `${mStatus()}${mHead('Stillwater �
 function mThemes(){return `${mStatus()}${mHead('Stillwater · Deck',`<button class="ib" data-a="regroup" aria-label="Regroup">${I('undo')}</button>`)}${mSteps()}<div class="m-body f"><div style="height:12px"></div>${themesIntro()}<div class="tgrid">${S.themes.map(themeCard).join('')}</div>${looseRow()}</div><div class="m-foot"><button class="btn btn-primary" data-a="toTemplate">Choose deliverable</button></div>`;}
 function mTemplate(){return `${mStatus()}${mHead('Stillwater · Deck')}${mSteps()}<div class="m-body f" style="display:flex;flex-direction:column;gap:12px"><h2 style="margin:12px 0 0;font-size:var(--fs-400)">Which deliverable?</h2>${delivChips()}<h2 style="margin:8px 0 0;font-size:var(--fs-400)">Pick a template</h2>
  ${Object.entries(TPL).map(([k,t])=>`<button class="mtpl" role="radio" aria-checked="${S.tpl===k}" data-a="tpl" data-v="${k}"><span class="fr">${slideHTML(0)}</span><span class="tx"><b>${t.n}</b><span>${t.d}</span></span>${box(S.tpl===k)}</button>`).join('')}
- <h2 style="margin:8px 0 0;font-size:var(--fs-400)">Include</h2><div>${incChecks()}</div><h2 style="margin:8px 0 0;font-size:var(--fs-400)">Deck outline</h2><span class="help" style="margin-top:-4px">Drag the handle or use the arrows to change the order.</span>${outline()}</div><div class="m-foot"><button class="btn btn-primary" data-a="generate">Generate deck</button></div>`;}
+ <h2 style="margin:8px 0 0;font-size:var(--fs-400)">Include</h2><div>${incChecks()}</div><h2 style="margin:8px 0 0;font-size:var(--fs-400)">Deck outline</h2><span class="help" style="margin-top:-4px">Drag a slide to change the order.</span>${outline()}</div><div class="m-foot"><button class="btn btn-primary" data-a="generate">Generate deck</button></div>`;}
 function mEditor(){const n=openIssues();return `${mStatus()}${mHead(`Deck · ${TPL[S.tpl].n} template · Saved`,`<button class="ib" data-a="soon" data-v="Deck options" aria-label="More options">${I('more')}</button>`)}<div class="m-body f" style="display:flex;flex-direction:column;gap:12px">
  ${n?`<div class="banner">${I('alert')}<span class="tx"><b>${n} slide${n>1?'s':''} to check before you share</b>${S.issues.low==='open'?`Slide ${silverIdx()+1} low resolution`:''}${S.issues.low==='open'&&S.issues.credit==='open'?' · ':''}${S.issues.credit==='open'?`Slide ${stoneIdx()+1} missing credit`:''}</span><button class="btn btn-ghost sm" data-a="mIssues">Review</button></div>`:`<div class="allclear">${I('check','sm')}Ready to share</div>`}
  <div class="mstage" data-swipe="slide" aria-roledescription="carousel" aria-label="Slide ${S.slide+1} of ${slides().length}. Swipe to change slide.">${slideHTML(S.slide)}<span class="mcount" aria-hidden="true">${S.slide+1} / ${slides().length}</span></div><div class="chips" role="toolbar" aria-label="Slide tools"><button class="chip" data-a="swapImg">${I('swap','sm')}Swap</button><button class="chip" data-a="layout" data-v="1">${I('layout','sm')}Layout</button><span style="position:relative"><button class="chip" data-a="palette">${I('palette','sm')}Palette</button>${S.pop==='pal'?palMenu():''}</span></div>
@@ -2412,6 +2421,28 @@ document.addEventListener('pointermove',e=>{if(!tdrag)return;e.preventDefault();
 document.addEventListener('pointerup',()=>{if(!tdrag)return;const {from,over}=tdrag;tdrag=null;let to=over;if(to==null){render();return;}if(to>from)to--;if(moveSlide(from,to)){render();toast(`Moved to position ${to+1}`);}else render();});
 document.addEventListener('pointercancel',()=>{if(tdrag){tdrag=null;render();}});
 document.addEventListener('dragend',()=>{if(S.drag!=null){S.drag=null;render();}});
+
+/* deck outline: pointer drag to reorder (mouse, touch, pen) */
+let od=null,odSkipClick=false;
+function odScrollParent(el){for(let n=el.parentElement;n&&n!==document.body;n=n.parentElement){const cs=getComputedStyle(n);if(/(auto|scroll)/.test(cs.overflowY)&&n.scrollHeight>n.clientHeight)return n;}return null;}
+function odStart(){const li=od.li,items=[...li.parentNode.children];od.on=true;od.items=items;const r=items.map(x=>x.getBoundingClientRect());od.r=r;const gap=items.length>1?Math.max(0,r[1].top-r[0].bottom):8;od.step=r[od.from].height+gap;od.top0=li.parentNode.getBoundingClientRect().top;od.sp=odScrollParent(li);od.to=od.from;
+ items.forEach(x=>{if(x!==li)x.style.transition='transform .18s cubic-bezier(.2,0,0,1)';});li.classList.add('lifting');document.body.classList.add('odragging');try{li.setPointerCapture(od.pid)}catch(_){}
+ const tick=()=>{if(!od||!od.on)return;const y=od.y;const sp=od.sp;const top=sp?sp.getBoundingClientRect().top:0,bot=sp?sp.getBoundingClientRect().bottom:innerHeight;const v=y<top+64?-(top+64-y)/4:y>bot-64?(y-(bot-64))/4:0;if(v){sp?sp.scrollTop+=v:scrollBy(0,v);odMove();}od.raf=requestAnimationFrame(tick);};od.raf=requestAnimationFrame(tick);}
+function odMove(){const {li,items,from,step,r}=od;const dy=(od.y-od.y0)-(li.parentNode.getBoundingClientRect().top-od.top0);li.style.transform=`translateY(${dy}px)`;const c=(r[from].top+r[from].bottom)/2+dy;let to=from;
+ items.forEach((x,k)=>{const m=(r[k].top+r[k].bottom)/2;if(k>from&&m<c)to++;if(k<from&&m>c)to--;});od.to=to;
+ items.forEach((x,k)=>{if(k===from)return;const sh=(from<k&&k<=to)?-step:(to<=k&&k<from)?step:0;x.style.transform=sh?`translateY(${sh}px)`:'';});}
+function odEnd(cancel){if(!od)return;const o=od;od=null;if(!o.on)return;cancelAnimationFrame(o.raf);document.body.classList.remove('odragging');odSkipClick=true;setTimeout(()=>odSkipClick=false,0);
+ if(!cancel&&o.to!==o.from&&moveSlide(o.from,o.to)){render();toast(`Moved to position ${o.to+1}`);const nl=document.querySelector(`.oln>li[data-odrag="${o.to}"]`);if(nl){nl.classList.add('dropped');setTimeout(()=>nl.classList.remove('dropped'),400);}}else render();}
+document.addEventListener('pointerdown',e=>{const li=e.target.closest&&e.target.closest('.oln>li[data-odrag]');if(!li||e.button>0||(e.target.closest('button')&&!e.target.closest('.gr')))return;const touch=e.pointerType!=='mouse';if(touch&&!e.target.closest('.gr'))return;
+ od={li,from:+li.dataset.odrag,y0:e.clientY,y:e.clientY,pid:e.pointerId,on:false};if(touch){e.preventDefault();odStart();}});
+document.addEventListener('pointermove',e=>{if(!od||e.pointerId!==od.pid)return;od.y=e.clientY;if(!od.on){if(Math.abs(e.clientY-od.y0)<5)return;odStart();}e.preventDefault();odMove();},{passive:false});
+document.addEventListener('pointerup',e=>{if(od&&e.pointerId===od.pid)odEnd(false);});
+document.addEventListener('touchstart',e=>{if(e.target.closest&&e.target.closest('.oln .gr'))e.preventDefault();},{passive:false});
+document.addEventListener('touchmove',e=>{if(od&&od.on)e.preventDefault();},{passive:false});
+document.addEventListener('pointercancel',e=>{if(od&&e.pointerId===od.pid)odEnd(true);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&od&&od.on)odEnd(true);});
+document.addEventListener('keydown',e=>{const g=e.target.closest&&e.target.closest('[data-okey]');if(!g||(e.key!=='ArrowUp'&&e.key!=='ArrowDown'))return;e.preventDefault();const i=+g.dataset.okey,t=i+(e.key==='ArrowUp'?-1:1);if(moveSlide(i,t)){render();const ng=document.querySelector(`[data-okey="${t}"]`);ng&&ng.focus();toast(`Moved to position ${t+1}`);}});
+document.addEventListener('click',e=>{if(odSkipClick){e.stopPropagation();e.preventDefault();}},true);
 document.addEventListener('keydown',e=>{
  if(e.altKey&&(e.key==='ArrowUp'||e.key==='ArrowDown')&&e.target.closest&&e.target.closest('.th-b')){e.preventDefault();A.tMove({dataset:{d:e.key==='ArrowUp'?-1:1}});return;}
  if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.k==='ren'){const id=S.renaming;A.renSave({dataset:{v:id}});return;}
