@@ -1665,7 +1665,7 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 @media (max-width:960px) and (min-width:521px){.nextc .nc-act{grid-template-columns:1fr 1fr}}
 @media (min-width:961px){
 .f-split.su{align-items:start}
-.f-split.su>.f-main{position:sticky;top:calc(var(--ctl,56px) + var(--fh,0px));max-height:calc(100vh - var(--ctl,56px) - var(--fh,0px));min-height:calc(100vh - var(--ctl,56px) - var(--fh,0px));overflow-y:auto;overscroll-behavior:contain}
+.f-split.su>.f-main{position:sticky;top:calc(var(--ctl,56px) + var(--fh,0px));min-height:calc(100vh - var(--ctl,56px) - var(--fh,0px))}
 .f-split.su>.f-side{position:static;height:auto;min-height:calc(100vh - var(--ctl,56px) - var(--fh,0px));padding-top:0}
 .f-split.su .su-head{position:sticky;top:calc(var(--ctl,56px) + var(--fh,0px));z-index:3;background:var(--bg);padding:24px 0 12px;margin-bottom:-4px}
 .f-split.su .su-head h2{margin:0}
@@ -2060,7 +2060,7 @@ function dPreview(){const open=S.shareOpen;return shell(fhead(`Stillwater · Dec
 
 function openC(){return S.comments.filter(c=>c.state==='open');}
 let sbRO=null;
-function sbFix(){const el=document.querySelector('.f-side.sb');if(sbRO){sbRO.disconnect();sbRO=null;}if(!el)return;const set=()=>{const cs=getComputedStyle(document.documentElement);const off=(parseFloat(cs.getPropertyValue('--ctl'))||56)+(parseFloat(cs.getPropertyValue('--fh'))||0);el.style.top=Math.min(off,innerHeight-el.offsetHeight)+'px';};set();if(window.ResizeObserver){sbRO=new ResizeObserver(set);sbRO.observe(el);}}
+function sbFix(){if(sbRO){sbRO.disconnect();sbRO=null;}const els=[...document.querySelectorAll('.f-side.sb,.f-split.su>.f-main')];if(!els.length)return;const set=()=>{const cs=getComputedStyle(document.documentElement);const off=(parseFloat(cs.getPropertyValue('--ctl'))||56)+(parseFloat(cs.getPropertyValue('--fh'))||0);els.forEach(el=>{el.style.top=innerWidth>960?Math.min(off,innerHeight-el.offsetHeight)+'px':'';});};set();if(window.ResizeObserver){sbRO=new ResizeObserver(set);els.forEach(el=>sbRO.observe(el));}}
 addEventListener('resize',()=>sbFix());
 function popAttn(main,extra,focusSel){requestAnimationFrame(()=>{const its=[...document.querySelectorAll(main)];const fl=[...document.querySelectorAll(extra)];const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;if(its[0])its[0].scrollIntoView({block:'center',behavior:rm?'auto':'smooth'});[...its,...fl].forEach((e,i)=>{e.classList.remove('pop');void e.offsetWidth;e.style.animationDelay=(i<its.length?i:i-its.length)*80+'ms';e.classList.add('pop');e.addEventListener('animationend',()=>{e.classList.remove('pop');e.style.animationDelay='';},{once:true});});const f=its[0]&&its[0].querySelector(focusSel);if(f)setTimeout(()=>f.focus({preventScroll:true}),350);});}
 function cmtCard(c,m){const on=S.csel===c.n;const L=slides();return `<div class="cmt${on?' on':''}${c.state==='open'?' open':''}" data-a="selC" data-v="${c.n}"><button class="csel" data-a="selC" data-v="${c.n}" aria-pressed="${on}" aria-label="Comment ${c.n} from Nora on slide ${c.slide+1}: ${esc(c.t)}"><span class="who"><span class="num" aria-hidden="true">${c.n}</span>${nora}<span><b>Nora · Stillwater</b><span>Slide ${c.slide+1} · ${c.ago}</span></span></span><span class="ct">${esc(c.t)}</span></button>
