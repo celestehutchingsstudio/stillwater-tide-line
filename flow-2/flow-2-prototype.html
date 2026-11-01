@@ -1665,9 +1665,9 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 @media (max-width:960px) and (min-width:521px){.nextc .nc-act{grid-template-columns:1fr 1fr}}
 @media (min-width:961px){
 .f-split.su{align-items:start}
-.f-split.su>.f-main{position:sticky;top:var(--ctl,56px);max-height:calc(100vh - var(--ctl,56px));overflow-y:auto;overscroll-behavior:contain}
-.f-split.su>.f-side{position:static;height:auto;min-height:calc(100vh - var(--ctl,56px));padding-top:0}
-.f-split.su .su-head{position:sticky;top:var(--ctl,56px);z-index:3;background:var(--bg);padding:24px 0 12px;margin-bottom:-4px}
+.f-split.su>.f-main{position:sticky;top:calc(var(--ctl,56px) + var(--fh,0px));max-height:calc(100vh - var(--ctl,56px) - var(--fh,0px));min-height:calc(100vh - var(--ctl,56px) - var(--fh,0px));overflow-y:auto;overscroll-behavior:contain}
+.f-split.su>.f-side{position:static;height:auto;min-height:calc(100vh - var(--ctl,56px) - var(--fh,0px));padding-top:0}
+.f-split.su .su-head{position:sticky;top:calc(var(--ctl,56px) + var(--fh,0px));z-index:3;background:var(--bg);padding:24px 0 12px;margin-bottom:-4px}
 .f-split.su .su-head h2{margin:0}
 }
 @media (max-width:960px){.f-split.su .su-head{display:flex;flex-direction:column;gap:12px}.f-split.su .su-head h2{margin:0}}
@@ -1715,6 +1715,7 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 @media (prefers-reduced-motion:reduce){.issue.pop,.cmt.pop{animation:none;box-shadow:0 0 0 3px #E60023;transition:box-shadow .6s}.th-b .flag.pop{animation:none;background:#E60023;color:#fff}}
 @keyframes pincPop{0%,100%{transform:scale(1)}30%{transform:scale(1.4)}60%{transform:scale(.95)}80%{transform:scale(1.15)}}
 .pinc.pop{animation:pincPop .9s cubic-bezier(.2,.8,.2,1) both}
+.f-split.su .su-head .row{margin:0}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2048,8 +2049,9 @@ function cmtCard(c,m){const on=S.csel===c.n;const L=slides();return `<div class=
  ${c.rep.map(r=>`<div class="rep"><span class="rby">${av('Claire','xs')}<b>You</b></span>${esc(r)}</div>`).join('')}
  ${S.reply===c.n?`<div class="lrow"><input class="inp" id="rep-in" data-k="replyTxt" placeholder="Reply to Nora" aria-label="Reply to Nora"><button class="btn btn-dark sm" data-a="sendReply" data-v="${c.n}" style="height:48px">Send</button></div>`:''}
  ${c.state==='open'?`<div class="acts"><button class="btn btn-ghost sm" data-a="reply" data-v="${c.n}">Reply</button><button class="btn btn-secondary sm" data-a="revise" data-v="${c.n}">Revise slide</button><button class="btn btn-ghost sm" data-a="resolve" data-v="${c.n}">Resolve</button></div>`:`<div class="acts"><span class="stt ok">${I('check','sm')}Resolved</span><button class="btn btn-ghost sm" data-a="reopenC" data-v="${c.n}">Reopen</button></div>`}</div>`;}
-function commentsPanel(){const t=S.ctab;const list=t==='open'?openC():S.comments.filter(c=>c.state!=='open');
- return `<div class="row"><h2 style="flex:1">Client comments</h2><span class="tag">${openC().length} open</span></div>
+function commentsPanel(st){const t=S.ctab;const list=t==='open'?openC():S.comments.filter(c=>c.state!=='open');
+ const hd=`<div class="row"><h2 style="flex:1">Client comments</h2><span class="tag">${openC().length} open</span></div>`;
+ return `${st?`<div class="su-head">${hd}</div>`:hd}
  <div class="chips" role="tablist">${[['open','Open'],['resolved','Resolved'],['versions','Versions']].map(([k,l])=>`<button class="chip" role="tab" aria-selected="${t===k}" data-a="ctab" data-v="${k}">${l}</button>`).join('')}</div>
  ${t==='versions'?versions():list.length?list.map(c=>cmtCard(c)).join(''):`<p class="muted">${t==='open'?'No open comments. Nice.':'Nothing resolved yet.'}</p>`}`;}
 function versions(){return [[2,'Shared Nov 12','Same link, latest version'],[1,'Shared Nov 5','Before the silver and stone changes']].map(([v,d,s])=>`<button class="cmt${S.version===v?' on':''}" data-a="setVer" data-v="${v}"><div class="who">${I('history','sm')}<span><b>Version ${v}${v===2?' · current':''}</b><span>${d}</span></span></div><p class="muted">${s}</p></button>`).join('');}
@@ -2058,8 +2060,8 @@ function verBtn(){return `<span style="position:relative"><button class="btn btn
 function statusLine(){return `<span class="stt ${S.approved?'ok':''}">${I(S.approved?'check':'clock','sm')}${S.approved?'Approved':'Waiting on approval'}</span><span>Nora from Stillwater opened the link 3 times · ${S.comments.length} comments</span>`;}
 function dReview(){const L=slides();const byS={};openC().forEach(c=>byS[c.slide]=c.n);
  return shell(fhead('Stillwater · Deck · Same link, latest version',`${verBtn()}<button class="btn btn-secondary" data-a="reviseDeck">Revise</button>${S.approved?`<button class="btn btn-dark" data-a="navCat">${I('check','sm')}Approved</button>`:`<button class="btn btn-primary" data-a="approve">Mark approved</button>`}`)+
- `<div class="f-split wide"><div class="f-main wash"><div class="rv-top">${statusLine()}</div><div class="sgrid">${L.map((s,i)=>{const cn=byS[i];const sel=cn&&S.csel===cn;return `<button class="it" data-a="${cn?'selC':'pvOpen'}" data-v="${cn||i}" aria-current="${!!sel}" aria-label="Slide ${i+1}: ${esc(sname(s))}${cn?', comment '+cn:''}"><span class="fr">${cn?`<span class="pinc">${cn}</span>`:''}${slideHTML(i)}</span><b>${esc(sname(s))}</b></button>`;}).join('')}</div></div>
- <aside class="f-side">${commentsPanel()}<div style="margin-top:auto">${approvalNote()}</div></aside></div>`);}
+ `<div class="f-split wide su"><div class="f-main wash"><div class="rv-top">${statusLine()}</div><div class="sgrid">${L.map((s,i)=>{const cn=byS[i];const sel=cn&&S.csel===cn;return `<button class="it" data-a="${cn?'selC':'pvOpen'}" data-v="${cn||i}" aria-current="${!!sel}" aria-label="Slide ${i+1}: ${esc(sname(s))}${cn?', comment '+cn:''}"><span class="fr">${cn?`<span class="pinc">${cn}</span>`:''}${slideHTML(i)}</span><b>${esc(sname(s))}</b></button>`;}).join('')}</div></div>
+ <aside class="f-side">${commentsPanel(1)}<div style="margin-top:auto">${approvalNote()}</div></aside></div>`);}
 
 /* client projects */
 function catData(){const tl=S.approved;return [
