@@ -1831,6 +1831,11 @@ input::placeholder,textarea::placeholder{color:var(--ph);opacity:1}
 [data-theme="dark"] .mst.sb,[data-theme="dark"] .mproj .tx span.mst.sb{color:#5aa9ff}
 [data-theme="dark"] .mst.ip,[data-theme="dark"] .mproj .tx span.mst.ip{color:#f19a4c}
 .mproj .cv{width:112px}
+.mst{font-size:var(--fs-200);line-height:20px}
+.mst .sti{width:18px;height:18px}
+.mproj .tx span.mst,.mproj .tx span.mst .stx{font-size:var(--fs-200)}
+.mproj .tx span.mst .sr-only{position:absolute}
+[data-theme="dark"] .mst .sti .g{stroke:#111}
 
 </style>
 </head><body><div class="ctl"></div>
@@ -2251,9 +2256,9 @@ function mCatalog(){const data=catFiltered();return `${mStatus()}<div class="m-h
  <div class="tabs" role="tablist" style="gap:16px;margin-top:4px">${['All work','Decks','Packaging','Print'].map(t=>`<button class="tab" role="tab" aria-selected="${S.cTab===t}" data-a="cTab" data-v="${t}">${t}</button>`).join('')}</div>
   <div id="catlist">${mCatList(data)}</div></div><div class="m-foot"><button class="btn btn-primary" data-a="newProject">New project</button></div>`;}
 const MST={'Studio refill card':'Approved','Bag and label system':'In progress','Rebrand pitch':'Approved','Spring catalogue':'Submitted','Showroom signage':'Approved'};
-const STI={ap:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',sb:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M8 11.5V4.8M5.2 7.4L8 4.6l2.8 2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',ip:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 3.5a4.5 4.5 0 0 1 0 9z" fill="currentColor"/></svg>'};
-function STATUS_AP(){return `<span class="mst ap">${STI.ap}<span class="stx">Approved</span></span>`;}
-function mSt(p){const st=p.n.startsWith('Tide')?(S.approved?'Approved':'Submitted'):(MST[p.n]||'Submitted');const k={Approved:'ap','Submitted':'sb','In progress':'ip'}[st];return `<span class="mst ${k}">${STI[k]}<span class="stx">${st}</span></span>`;}
+const STI={ap:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.6 8.2l2.2 2.2 4.6-4.7" class="g" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',sb:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M8 11.5V4.8M5.2 7.4L8 4.6l2.8 2.8" class="g" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',ip:'<svg class="sti" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 3.5a4.5 4.5 0 0 1 0 9z" fill="currentColor"/></svg>'};
+function STATUS_AP(){return `<span class="mst ap">${STI.ap}<span class="stx"><span class="sr-only">Status: </span>Approved</span></span>`;}
+function mSt(p){const st=p.n.startsWith('Tide')?(S.approved?'Approved':'Submitted'):(MST[p.n]||'Submitted');const k={Approved:'ap','Submitted':'sb','In progress':'ip'}[st];return `<span class="mst ${k}">${STI[k]}<span class="stx"><span class="sr-only">Status: </span>${st}</span></span>`;}
 function mCatList(data){return data.length?data.map(c=>`<section class="mcl"><div class="mcl-h"><h2>${esc(c.n)}</h2><span>${esc(c.sub)} · ${catData().find(x=>x.n===c.n).projects.length} projects</span></div>
  ${c.projects.map(p=>{const first=p.items[0];const tl=p.n.startsWith('Tide');const meta=`${p.d} · ${esc(p.items.map(i=>i.t).join(', ').toLowerCase().replace(/^./,x=>x.toUpperCase()))}`;
  return tl?`<article class="mfeat"><button class="mf-cv" data-a="openDel" data-v="${esc(first.go||'')}" data-t="${esc(first.t)}" aria-label="Open ${esc(p.n)} pitch deck">${cover(first,true)}</button><div class="mf-tx"><div class="mf-row"><b>${esc(p.n)}</b>${mSt(p)}</div><span>${S.approved?'Approved by Nora on Nov 28 · ':''}${meta}</span></div>${p.items.length>1?`<div class="mdels mf-dels">${p.items.slice(1,4).map(delBtn).join('')}</div>`:''}</article>`
